@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
-import { generateToken, invalidateToken } from "../tokens";
+import { generateToken, invalidateToken, validateToken } from "../tokens";
 
 const TOKEN_COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY_MS = 3600000; // 1 hour
