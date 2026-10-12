@@ -1,6 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import type { Language, TranslationKeys } from "@/types";
 import { translations } from "@/i18n";
+import { DEFAULT_LANGUAGE } from "@/constants";
 
 interface TranslationsContextType {
   language: Language;
@@ -10,15 +11,8 @@ interface TranslationsContextType {
 
 const TranslationsContext = createContext<TranslationsContextType | undefined>(undefined);
 
-export const TranslationsProvider = ({
-  children,
-  language,
-  setLanguage,
-}: {
-  children: React.ReactNode;
-  language: Language;
-  setLanguage: (language: Language) => void;
-}) => {
+export const TranslationsProvider = ({ children }: { children: React.ReactNode }) => {
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const t = translations[language];
 
   return (

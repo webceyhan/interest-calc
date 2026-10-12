@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ComparisonItem, Language } from "@/types";
+import type { ComparisonItem } from "@/types";
 import { TopNav } from "@/components/TopNav";
 import { Header } from "@/components/Header";
 import { InputCard } from "@/components/InputCard";
@@ -15,7 +15,6 @@ import {
   DEFAULT_TERM_DAYS,
   DEFAULT_INTEREST_RATE,
   DEFAULT_RESERVATION_AMOUNT,
-  DEFAULT_LANGUAGE,
   DEFAULT_IS_ROUNDED,
 } from "@/constants";
 
@@ -150,10 +149,8 @@ function AppContent() {
 }
 
 function App() {
-  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
-
   return (
-    <TranslationsProvider language={language} setLanguage={setLanguage}>
+    <TranslationsProvider>
       <AppContent />
     </TranslationsProvider>
   );
