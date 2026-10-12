@@ -3,7 +3,7 @@ import { MongoClient, MongoClientOptions } from 'mongodb';
 let client: MongoClient | null = null;
 
 async function getClient(): Promise<MongoClient> {
-  if (client && client.topology?.isConnected()) {
+  if (client) {
     return client;
   }
 
