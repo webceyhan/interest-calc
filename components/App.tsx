@@ -13,7 +13,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-slate-950">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-end gap-6 py-4 md:py-6">
+        <div className="flex items-center justify-end gap-2 py-4 md:py-6">
           <RoundingSelector />
           <LanguageSelector />
           <GithubLink />
