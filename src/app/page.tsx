@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { translations, Language } from "@/src/utils/translations";
-import { calculateDeposit, formatCurrency } from "@/src/utils/calculations";
-import ComparisonList from "@/src/components/ComparisonList";
+import { translations, Language } from "@/utils/translations";
+import { calculateDeposit, formatCurrency } from "@/utils/calculations";
+import ComparisonList from "@/components/ComparisonList";
 
 interface ComparisonItem {
   id: string;
