@@ -1,8 +1,10 @@
-import { TopNav } from "@/components/TopNav";
 import { Header } from "@/components/Header";
 import { InputCard } from "@/components/InputCard";
 import { ResultCard } from "@/components/ResultCard";
 import { ComparisonList } from "@/components/ComparisonList";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { RoundingSelector } from "@/components/RoundingSelector";
+import { GithubLink } from "@/components/GithubLink";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";
@@ -12,7 +14,11 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-slate-950">
       <div className="max-w-7xl mx-auto px-6">
-        <TopNav />
+        <div className="flex items-center justify-end gap-6 py-4 md:py-6">
+          <RoundingSelector />
+          <LanguageSelector />
+          <GithubLink />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
