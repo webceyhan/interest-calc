@@ -77,13 +77,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-950">
-      <TopNav
-        language={language}
-        onLanguageChange={setLanguage}
-        isRounded={isRounded}
-        onRoundedChange={setIsRounded}
-        t={t}
-      />
+      <div className="max-w-7xl mx-auto">
+        <TopNav
+          language={language}
+          onLanguageChange={setLanguage}
+          isRounded={isRounded}
+          onRoundedChange={setIsRounded}
+          t={t}
+        />
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8 md:py-16">
         <Header t={t} />
