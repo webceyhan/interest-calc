@@ -16,7 +16,7 @@ export const TopNav = ({
   t,
 }: TopNavProps) => {
   return (
-    <div className="flex items-center justify-end gap-6 mb-8 md:mb-12 pb-6 md:pb-8 border-b border-slate-700/50">
+    <div className="flex items-center justify-end gap-6 px-6 py-4 md:py-6 border-b border-slate-700/50">
       <label className="flex items-center gap-2 cursor-pointer">
         <input
           type="checkbox"
