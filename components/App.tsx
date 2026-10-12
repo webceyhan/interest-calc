@@ -7,18 +7,12 @@ import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";
 import { BankProductListProvider } from "@/contexts/BankProductListContext";
-import { useTranslations } from "@/hooks/useTranslations";
 
 function AppContent() {
-  const { language, setLanguage } = useTranslations();
-
   return (
     <div className="min-h-screen bg-slate-950">
       <div className="max-w-7xl mx-auto px-6">
-        <TopNav
-          language={language}
-          onLanguageChange={setLanguage}
-        />
+        <TopNav />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">

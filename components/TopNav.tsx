@@ -1,39 +1,11 @@
-import type { Language } from "@/types";
-import { useTranslations } from "@/hooks/useTranslations";
-import { useNumberFormat } from "@/hooks/useNumberFormat";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { RoundingSelector } from "@/components/RoundingSelector";
 
-interface TopNavProps {
-  language: Language;
-  onLanguageChange: (lang: Language) => void;
-}
-
-export const TopNav = ({
-  language,
-  onLanguageChange,
-}: TopNavProps) => {
-  const { t } = useTranslations();
-  const { isRounded, setIsRounded } = useNumberFormat();
-
+export const TopNav = () => {
   return (
     <div className="flex items-center justify-end gap-6 py-4 md:py-6">
-      <label className="flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={isRounded}
-          onChange={(e) => setIsRounded(e.target.checked)}
-          className="w-5 h-5 accent-blue-500 cursor-pointer"
-          title={isRounded ? t.rounded : t.precise}
-        />
-        <span className="text-slate-400 font-medium text-sm">{t.rounded}</span>
-      </label>
-      <div className="text-sm">
-        <button
-          onClick={() => onLanguageChange(language === "tr" ? "en" : "tr")}
-          className="font-medium text-slate-400 hover:text-slate-300 transition-colors"
-        >
-          {language === "tr" ? "English" : "Türkçe"}
-        </button>
-      </div>
+      <RoundingSelector />
+      <LanguageSelector />
       <a
         href="https://github.com/webceyhan/interest-calc"
         target="_blank"
