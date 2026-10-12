@@ -20,19 +20,6 @@ export async function generateToken(): Promise<string> {
 
   return token;
 }
-  
-  console.error("[TOKEN_GENERATE] Creating token:", token.slice(0, 8) + "...", "Expires:", expiresAt.toISOString());
-  
-  const result = await collection.insertOne({
-    token,
-    expiresAt,
-    createdAt: new Date(),
-  });
-
-  console.error("[TOKEN_GENERATE] Inserted:", result.insertedId);
-
-  return token;
-}
 
 export async function validateToken(token: string): Promise<boolean> {
   try {
@@ -56,31 +43,10 @@ export async function validateToken(token: string): Promise<boolean> {
     return false;
   }
 }
-    
-    const now = new Date();
-    console.error("[TOKEN_VALIDATE] Token:", token.slice(0, 8) + "...", "Now:", now.toISOString());
-    
-    const tokenData = await collection.findOne({
-      token,
-      expiresAt: { $gt: now },
-    } as any);
-
-    const isValid = !!tokenData;
-    console.error("[TOKEN_VALIDATE] Found:", isValid, "Data:", tokenData ? "exists" : "null");
-    
-    return isValid;
-  } catch (error) {
-    console.error("[TOKEN_VALIDATE] Error:", error);
-    return false;
-  }
-}
 
 export async function invalidateToken(token: string): Promise<void> {
   const db = await getDatabase();
   const collection = db.collection("admin_tokens");
-  
-  await collection.deleteOne({ token } as any);
-}
   
   await collection.deleteOne({ token } as any);
 }
