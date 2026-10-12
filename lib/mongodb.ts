@@ -19,14 +19,11 @@ attachDatabasePool(client);
 let connectionPromise: Promise<MongoClient> | null = null;
 
 async function ensureConnected() {
-  if (client.topology?.isConnected()) {
-    return client;
+  if (connectionPromise) {
+    return connectionPromise;
   }
   
-  if (!connectionPromise) {
-    connectionPromise = client.connect();
-  }
-  
+  connectionPromise = client.connect();
   return connectionPromise;
 }
 
