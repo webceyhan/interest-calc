@@ -3,6 +3,19 @@ import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 import type { BankData } from "@/types";
 
+// Import token validation (we'll use a simple check instead)
+const tokens = new Map<string, { expiresAt: number }>();
+
+function validateToken(token: string): boolean {
+  const tokenData = tokens.get(token);
+  if (!tokenData) return false;
+  if (Date.now() > tokenData.expiresAt) {
+    tokens.delete(token);
+    return false;
+  }
+  return true;
+}
+
 export async function GET() {
   try {
     const filePath = join(process.cwd(), "public", "banks.json");
@@ -18,9 +31,9 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const authHeader = request.headers.get("authorization");
-    const adminPassword = process.env.ADMIN_PASSWORD || "admin";
+    const token = authHeader?.replace("Bearer ", "");
 
-    if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
+    if (!token || !validateToken(token)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

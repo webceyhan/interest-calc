@@ -1,26 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { Button } from "@/components/Button";
 import { SaveIcon, LoginIcon } from "@/components/Icons";
 
 export const UpdateButton = () => {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, token, login, logout } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { items } = useBankProductList();
-
-  // Restore password from localStorage on mount
-  useEffect(() => {
-    if (isAuthenticated) {
-      const stored = localStorage.getItem("admin_password");
-      if (stored) {
-        setPassword(stored);
-      }
-    }
-  }, [isAuthenticated]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +19,8 @@ export const UpdateButton = () => {
 
     const success = await login(password);
     if (success) {
-      localStorage.setItem("admin_password", password);
       setShowAuthModal(false);
+      setPassword("");
     } else {
       setError("Invalid password");
     }
@@ -38,6 +28,8 @@ export const UpdateButton = () => {
   };
 
   const handleUpdate = async () => {
+    if (!token) return;
+    
     setLoading(true);
     setError("");
 
@@ -52,7 +44,7 @@ export const UpdateButton = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${password}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(banksData),
       });
@@ -61,8 +53,7 @@ export const UpdateButton = () => {
 
       if (response.ok) {
         alert("Banks updated successfully!");
-        logout();
-        localStorage.removeItem("admin_password");
+        await logout();
       } else {
         setError(data.error || "Failed to update banks");
       }

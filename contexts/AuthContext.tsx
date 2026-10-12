@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  token: string | null;
   login: (password: string) => Promise<boolean>;
   logout: () => void;
 }
@@ -14,11 +15,13 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Restore auth state from localStorage on mount
-    const stored = localStorage.getItem("admin_authenticated");
-    if (stored === "true") {
+    // Restore token from localStorage on mount
+    const stored = localStorage.getItem("admin_token");
+    if (stored) {
+      setToken(stored);
       setIsAuthenticated(true);
     }
   }, []);
@@ -31,9 +34,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         body: JSON.stringify({ password }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        setToken(data.token);
         setIsAuthenticated(true);
-        localStorage.setItem("admin_authenticated", "true");
+        localStorage.setItem("admin_token", data.token);
         return true;
       }
       return false;
@@ -42,13 +48,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (token) {
+      try {
+        await fetch("/api/auth", {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` },
+        });
+      } catch {
+        // Ignore errors on logout
+      }
+    }
     setIsAuthenticated(false);
-    localStorage.removeItem("admin_authenticated");
+    setToken(null);
+    localStorage.removeItem("admin_token");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
