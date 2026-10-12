@@ -15,9 +15,25 @@ const client = new MongoClient(process.env.MONGODB_URI, options);
 // Attach the client to ensure proper cleanup on function suspension
 attachDatabasePool(client);
 
+// Ensure client is connected
+let connectionPromise: Promise<MongoClient> | null = null;
+
+async function ensureConnected() {
+  if (client.topology?.isConnected()) {
+    return client;
+  }
+  
+  if (!connectionPromise) {
+    connectionPromise = client.connect();
+  }
+  
+  return connectionPromise;
+}
+
 // Export the client for use in route handlers
 export default client;
 
-export function getDatabase() {
+export async function getDatabase() {
+  await ensureConnected();
   return client.db("interest_calc");
 }

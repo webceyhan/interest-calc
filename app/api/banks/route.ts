@@ -7,7 +7,7 @@ const TOKEN_COOKIE_NAME = "admin_token";
 
 export async function GET() {
   try {
-    const db = getDatabase();
+    const db = await getDatabase();
     const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
     
     let banks = await collection.findOne({ _id: "banks_data" } as any);
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const db = getDatabase();
+    const db = await getDatabase();
     const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
     
     await collection.updateOne(
