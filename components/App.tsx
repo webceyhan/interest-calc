@@ -18,7 +18,6 @@ function App() {
   const [reservationAmount, setReservationAmount] = useState<number>(0);
   const [language, setLanguage] = useState<Language>("en");
   const [isRounded, setIsRounded] = useState<boolean>(true);
-  const [comparisons, setComparisons] = useState<ComparisonItem[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
     DEFAULT_BANKS.map((bank, index) => ({
