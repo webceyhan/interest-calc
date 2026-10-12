@@ -1,6 +1,5 @@
-import { createContext, useState, ReactNode } from "react";
-import type { ComparisonItem } from "@/types";
-import { DEFAULT_BANKS } from "@/utils/banks";
+import { createContext, useState, ReactNode, useEffect } from "react";
+import type { ComparisonItem, BankData } from "@/types";
 
 interface BankProductListContextType {
   items: ComparisonItem[];
@@ -18,15 +17,34 @@ interface BankProductListProviderProps {
   children: ReactNode;
 }
 
+const transformBanksToItems = (banks: BankData[]): ComparisonItem[] =>
+  banks.map((bank, index) => ({
+    id: `bank-${index}`,
+    bankName: bank.name,
+    interestRate: bank.interestRate,
+    reservationAmount: bank.reservedAmount,
+  }));
+
 export const BankProductListProvider = ({ children }: BankProductListProviderProps) => {
-  const [items, setItems] = useState<ComparisonItem[]>(() =>
-    DEFAULT_BANKS.map((bank, index) => ({
-      id: `bank-${index}`,
-      bankName: bank.name,
-      interestRate: bank.interestRate,
-      reservationAmount: bank.reservedAmount,
-    }))
-  );
+  const [items, setItems] = useState<ComparisonItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBanks = async () => {
+      try {
+        const response = await fetch("/api/banks");
+        const banks: BankData[] = await response.json();
+        setItems(transformBanksToItems(banks));
+      } catch (error) {
+        console.error("Failed to load banks:", error);
+        setItems([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBanks();
+  }, []);
 
   const addProduct = (product: ComparisonItem) => {
     setItems([...items, product]);
@@ -44,15 +62,14 @@ export const BankProductListProvider = ({ children }: BankProductListProviderPro
     );
   };
 
-  const resetProducts = () => {
-    setItems(
-      DEFAULT_BANKS.map((bank, index) => ({
-        id: `bank-${index}`,
-        bankName: bank.name,
-        interestRate: bank.interestRate,
-        reservationAmount: bank.reservedAmount,
-      }))
-    );
+  const resetProducts = async () => {
+    try {
+      const response = await fetch("/api/banks");
+      const banks: BankData[] = await response.json();
+      setItems(transformBanksToItems(banks));
+    } catch (error) {
+      console.error("Failed to reset banks:", error);
+    }
   };
 
   return (
