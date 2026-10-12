@@ -17,25 +17,26 @@ export const ResultCardItem = ({
 }: ResultCardItemProps) => {
   return (
     <div
-      className={`flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors ${
+      className={`rounded-2xl p-3 md:p-6 bg-slate-700/40 border border-slate-600/50 transition-all ${
         animated ? "animate-fade-in" : ""
       }`}>
-      <div
-        className={`flex items-center justify-center rounded-lg bg-blue-600/20 text-blue-400 flex-shrink-0 ${
-          large ? "w-16 h-16" : "w-12 h-12"
-        }`}>
-        <div className={large ? "w-8 h-8" : "w-6 h-6"}>{icon}</div>
-      </div>
-      <div className="flex-1">
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-          {label}
-        </p>
-        <p
-          className={`font-black text-white ${
-            large ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
-          }`}>
-          {value}
-        </p>
+      <div className="flex items-start gap-4">
+        <div className={`flex items-center justify-center w-12 md:w-14 h-12 md:h-14 bg-slate-500 rounded-full shrink-0 border border-slate-500/50 text-slate-900 ${large ? "md:w-16 md:h-16" : ""}`}>
+          <div className={`${large ? "w-8 md:w-10 h-8 md:h-10" : "w-8 md:w-10 h-8 md:h-10"}`}>
+            {icon}
+          </div>
+        </div>
+        <div className={large ? "flex-1" : "flex-1 min-w-0"}>
+          <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
+            {label}
+          </p>
+          <p 
+            className={`font-bold text-white ${
+              large ? "text-2xl md:text-3xl" : "text-lg md:text-2xl"
+            }`}>
+            {value}
+          </p>
+        </div>
       </div>
     </div>
   );
