@@ -1,15 +1,17 @@
 import { useTranslations } from "@/hooks/useTranslations";
+import { Button } from "@/components/Button";
 
 export const LanguageSelector = () => {
   const { language, setLanguage } = useTranslations();
 
   return (
-    <button
+    <Button
+      variant="ghost"
       onClick={() => setLanguage(language === "tr" ? "en" : "tr")}
-      className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 hover:text-slate-300 font-medium text-sm"
       title={language === "tr" ? "English" : "Türkçe"}
+      className="text-sm font-medium"
     >
       {language === "tr" ? "EN" : "TR"}
-    </button>
+    </Button>
   );
 };

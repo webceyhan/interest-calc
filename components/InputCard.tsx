@@ -5,6 +5,7 @@ import { useCalculator } from "@/hooks/useCalculator";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { InputCardItem } from "@/components/InputCardItem";
 import { NameDialog } from "@/components/NameDialog";
+import { Button } from "@/components/Button";
 
 export const InputCard = () => {
   const { t } = useTranslations();
@@ -73,11 +74,12 @@ export const InputCard = () => {
             placeholder={t.reservationAmount}
           />
 
-          <button
+          <Button
+            variant="primary"
             onClick={handleCompare}
-            className="w-full px-6 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all duration-200 uppercase tracking-wide text-xs md:text-sm mt-2 md:mt-4 hover:shadow-lg active:scale-95">
+            className="w-full md:py-3 uppercase tracking-wide text-xs md:text-sm mt-2 md:mt-4 hover:shadow-lg rounded-xl px-6 py-2">
             {t.compare}
-          </button>
+          </Button>
         </div>
       </div>
 

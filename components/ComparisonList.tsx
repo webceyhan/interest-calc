@@ -8,6 +8,7 @@ import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
 import { ComparisonListItem } from "@/components/ComparisonListItem";
+import { Button } from "@/components/Button";
 
 export type { ComparisonItem };
 
@@ -84,30 +85,34 @@ export const ComparisonList = () => {
         {items.length > 0 && (
           <div className="flex gap-2">
             {/* Mobile: Icons only */}
-            <button
+            <Button
+              variant="ghost"
               onClick={handleShare}
-              className="md:hidden p-2 text-slate-300 hover:text-blue-400 transition-all active:scale-90">
+              className="md:hidden">
               <ShareIcon />
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="ghost"
               onClick={resetProducts}
-              className="md:hidden p-2 text-slate-300 hover:text-blue-400 transition-all active:scale-90">
+              className="md:hidden">
               <ResetIcon />
-            </button>
+            </Button>
             
             {/* Desktop: Full buttons */}
-            <button
+            <Button
+              variant="outline"
               onClick={handleShare}
-              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg transition-all duration-200 uppercase tracking-wide hover:shadow-md active:scale-95">
+              className="hidden md:flex items-center gap-2">
               <ShareIcon />
               {t.share}
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={resetProducts}
-              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg transition-all duration-200 uppercase tracking-wide hover:shadow-md active:scale-95">
+              className="hidden md:flex items-center gap-2">
               <ResetIcon />
               {t.reset}
-            </button>
+            </Button>
           </div>
         )}
       </div>

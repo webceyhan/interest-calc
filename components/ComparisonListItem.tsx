@@ -6,6 +6,7 @@ import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon } from "@/components/Icons";
+import { Button } from "@/components/Button";
 
 interface ComparisonListItemProps {
   item: ComparisonItem & {
@@ -69,16 +70,16 @@ export const ComparisonListItem = ({
           </div>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={onStartEditing}
-            className="text-lg font-bold text-slate-400 hover:text-slate-200 transition-colors shrink-0 w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded-lg">
+          <Button
+            variant="ghost"
+            onClick={onStartEditing}>
             <PenIcon />
-          </button>
-          <button
-            onClick={onRemove}
-            className="text-lg font-bold text-slate-400 hover:text-slate-200 transition-colors shrink-0 w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded-lg">
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={onRemove}>
             ✕
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -127,16 +128,18 @@ export const ComparisonListItem = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <button
+            <Button
+              variant="primary"
               onClick={onSaveEditing}
-              className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all active:scale-95">
+              className="flex-1">
               {t.save}
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="default"
               onClick={onCancelEditing}
-              className="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-all active:scale-95">
+              className="flex-1">
               {t.cancel}
-            </button>
+            </Button>
           </div>
         </div>
       ) : (
