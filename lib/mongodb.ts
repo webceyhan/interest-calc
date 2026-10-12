@@ -1,6 +1,10 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
 import { attachDatabasePool } from '@vercel/functions';
 
+if (!process.env.MONGODB_URI) {
+  throw new Error("MONGODB_URI environment variable is not set");
+}
+
 const options: MongoClientOptions = {
   appName: "deposit-calculator",
   maxIdleTimeMS: 5000
