@@ -81,20 +81,20 @@ export async function GET(request: NextRequest) {
     const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!token) {
-      return NextResponse.json({ authenticated: false }, { status: 401 });
+      return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
     // Validate token
     const { validateToken } = await import("../tokens");
     if (!validateToken(token)) {
-      return NextResponse.json({ authenticated: false }, { status: 401 });
+      return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
-    return NextResponse.json({ authenticated: true });
+    return NextResponse.json({ authenticated: true }, { status: 200 });
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.error("Status check error:", error);
     }
-    return NextResponse.json({ authenticated: false }, { status: 401 });
+    return NextResponse.json({ authenticated: false }, { status: 200 });
   }
 }
