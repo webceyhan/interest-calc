@@ -8,11 +8,9 @@ import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";
 import { BankProductListProvider } from "@/contexts/BankProductListContext";
 import { useTranslations } from "@/hooks/useTranslations";
-import { useNumberFormat } from "@/hooks/useNumberFormat";
 
 function AppContent() {
   const { language, setLanguage } = useTranslations();
-  useNumberFormat(); // Ensure context is available to children
 
   return (
     <div className="min-h-screen bg-slate-950">
