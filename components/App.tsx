@@ -6,7 +6,8 @@ import { InputCard } from "@/components/InputCard";
 import { ResultCard } from "@/components/ResultCard";
 import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
-import { TranslationsProvider, useTranslations } from "@/hooks/useTranslations";
+import { TranslationsProvider } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 import {
