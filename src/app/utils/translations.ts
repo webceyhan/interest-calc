@@ -20,6 +20,7 @@ export type TranslationKeys = {
   enterBankName: string;
   remove: string;
   clearAll: string;
+  reset: string;
   rounded: string;
   precise: string;
   noComparisons: string;
@@ -54,6 +55,7 @@ export const translations: Record<Language, TranslationKeys> = {
     enterBankName: "Banka adını giriniz",
     remove: "Kaldır",
     clearAll: "Temizle",
+    reset: "Sıfırla",
     rounded: "Yuvarla",
     precise: "Kesin",
     noComparisons: "Henüz karşılaştırma yok",
@@ -86,6 +88,7 @@ export const translations: Record<Language, TranslationKeys> = {
     enterBankName: "Enter bank name",
     remove: "Remove",
     clearAll: "Clean",
+    reset: "Reset",
     rounded: "Rounded",
     precise: "Precise",
     noComparisons: "No comparisons yet",

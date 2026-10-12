@@ -7,8 +7,8 @@ const ShareIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
 );
 
-const ClearIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 22-1-4"/><path d="M19 14a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v1a1 1 0 0 0 1 1"/><path d="M19 14H5l-1.973 6.767A1 1 0 0 0 4 22h16a1 1 0 0 0 .973-1.233z"/><path d="m8 22 1-4"/></svg>
+const ResetIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
 );
 
 const PenIcon = () => (
@@ -120,8 +120,8 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
             </button>
             <button
               onClick={onClearAll}
-              className="md:hidden p-2 text-slate-300 hover:text-red-400 transition-all active:scale-90">
-              <ClearIcon />
+              className="md:hidden p-2 text-slate-300 hover:text-blue-400 transition-all active:scale-90">
+              <ResetIcon />
             </button>
             
             {/* Desktop: Full buttons */}
@@ -134,8 +134,8 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
             <button
               onClick={onClearAll}
               className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg transition-all duration-200 uppercase tracking-wide hover:shadow-md active:scale-95">
-              <ClearIcon />
-              {t.clearAll}
+              <ResetIcon />
+              {t.reset}
             </button>
           </div>
         )}
