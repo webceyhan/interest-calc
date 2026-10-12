@@ -64,7 +64,13 @@ function App() {
   };
 
   const handleClearAll = () => {
-    setComparisons([]);
+    const initialComparisons = DEFAULT_BANKS.map((bank, index) => ({
+      id: `bank-${index}`,
+      bankName: bank.name,
+      interestRate: bank.interestRate,
+      reservationAmount: bank.reservedAmount,
+    }));
+    setComparisons(initialComparisons);
   };
 
   const handleUpdateComparison = (id: string, updates: Partial<ComparisonItem>) => {
