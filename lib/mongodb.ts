@@ -1,25 +1,19 @@
-import { MongoClient, Db } from "mongodb";
+import { MongoClient, MongoClientOptions } from 'mongodb';
+import { attachDatabasePool } from '@vercel/functions';
 
-let cachedClient: MongoClient | null = null;
-let cachedDb: Db | null = null;
+const options: MongoClientOptions = {
+  appName: "deposit-calculator",
+  maxIdleTimeMS: 5000
+};
 
-export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
-  }
+const client = new MongoClient(process.env.MONGODB_URI, options);
 
-  const mongoUri = process.env.MONGODB_URI;
-  if (!mongoUri) {
-    throw new Error("MONGODB_URI environment variable is not set");
-  }
+// Attach the client to ensure proper cleanup on function suspension
+attachDatabasePool(client);
 
-  const client = new MongoClient(mongoUri);
-  await client.connect();
+// Export the client for use in route handlers
+export default client;
 
-  const db = client.db("interest_calc");
-
-  cachedClient = client;
-  cachedDb = db;
-
-  return { client, db };
+export function getDatabase() {
+  return client.db("interest_calc");
 }
