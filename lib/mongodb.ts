@@ -20,5 +20,6 @@ client.connect().catch(error => {
 export default client;
 
 export async function getDatabase() {
+  console.error("[MONGODB] getDatabase() called");
   return client.db("interest_calc");
 }

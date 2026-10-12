@@ -6,6 +6,7 @@ const TOKEN_COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY_MS = 3600000; // 1 hour
 
 export async function POST(request: NextRequest) {
+  console.error("[AUTH_POST] Route called");
   try {
     const adminPassword = process.env.ADMIN_PASSWORD;
     
@@ -77,20 +78,26 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  console.error("[AUTH_GET] Route called");
   try {
     const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!token) {
+      console.error("[AUTH_GET] No token in cookie");
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
+    console.error("[AUTH_GET] Found token, validating...");
     // Validate token
     if (!await validateToken(token)) {
+      console.error("[AUTH_GET] Token validation failed");
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
+    console.error("[AUTH_GET] Token valid");
     return NextResponse.json({ authenticated: true }, { status: 200 });
   } catch (error) {
+    console.error("[AUTH_GET] Caught error:", error);
     if (process.env.NODE_ENV === "development") {
       console.error("Status check error:", error);
     }
