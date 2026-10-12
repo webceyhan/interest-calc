@@ -15,7 +15,6 @@ export type TranslationKeys = {
   finalAmount: string;
   reservationAmount: string;
   compare: string;
-  addComparison: string;
   comparisons: string;
   bankName: string;
   enterBankName: string;
@@ -30,9 +29,8 @@ export type TranslationKeys = {
   comparisonStep3: string;
   share: string;
   copied: string;
-  loadBanks: string;
-  loading: string;
-  fetch: string;
+  save: string;
+  cancel: string;
 };
 
 export const translations: Record<Language, TranslationKeys> = {
@@ -51,7 +49,6 @@ export const translations: Record<Language, TranslationKeys> = {
     finalAmount: "Vade Sonu Net Tutar",
     reservationAmount: "Rezerve Tutar",
     compare: "Karşılaştır",
-    addComparison: "Banka Ekle",
     comparisons: "Karşılaştırma",
     bankName: "Banka Adı",
     enterBankName: "Banka adını giriniz",
@@ -66,9 +63,8 @@ export const translations: Record<Language, TranslationKeys> = {
     comparisonStep3: "Banka adını girin ve gönder",
     share: "Paylaş",
     copied: "Kopyalandı!",
-    loadBanks: "Bankaları Yükle",
-    loading: "Yükleniyor...",
-    fetch: "Yükle"
+    save: "Kaydet",
+    cancel: "İptal"
   },
   en: {
     title: "Deposit Interest Calculator",
@@ -85,7 +81,6 @@ export const translations: Record<Language, TranslationKeys> = {
     finalAmount: "Final Amount",
     reservationAmount: "Reserved Amount",
     compare: "Compare",
-    addComparison: "Add Bank",
     comparisons: "Comparison",
     bankName: "Bank Name",
     enterBankName: "Enter bank name",
@@ -100,8 +95,7 @@ export const translations: Record<Language, TranslationKeys> = {
     comparisonStep3: "Give a name and submit",
     share: "Share",
     copied: "Copied!",
-    loadBanks: "Load Banks",
-    loading: "Loading...",
-    fetch: "Fetch"
+    save: "Save",
+    cancel: "Cancel"
   }
 };
