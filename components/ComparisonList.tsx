@@ -82,39 +82,37 @@ export const ComparisonList = () => {
         <h2 className="text-2xl font-bold text-white uppercase tracking-wide">
           {t.comparisons}
         </h2>
-        {items.length > 0 && (
-          <div className="flex gap-2">
-            {/* Mobile: Icons only */}
-            <Button
-              variant="ghost"
-              onClick={handleShare}
-              className="md:hidden">
-              <ShareIcon />
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={resetProducts}
-              className="md:hidden">
-              <ResetIcon />
-            </Button>
-            
-            {/* Desktop: Full buttons */}
-            <Button
-              variant="outline"
-              onClick={handleShare}
-              className="hidden md:flex items-center gap-2">
-              <ShareIcon />
-              {t.share}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={resetProducts}
-              className="hidden md:flex items-center gap-2">
-              <ResetIcon />
-              {t.reset}
-            </Button>
-          </div>
-        )}
+        <div className="flex gap-2">
+          {/* Mobile: Icons only */}
+          <Button
+            variant="ghost"
+            onClick={handleShare}
+            className="md:hidden">
+            <ShareIcon />
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={resetProducts}
+            className="md:hidden">
+            <ResetIcon />
+          </Button>
+          
+          {/* Desktop: Full buttons */}
+          <Button
+            variant="outline"
+            onClick={handleShare}
+            className="hidden md:flex items-center gap-2">
+            <ShareIcon />
+            {t.share}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={resetProducts}
+            className="hidden md:flex items-center gap-2">
+            <ResetIcon />
+            {t.reset}
+          </Button>
+        </div>
       </div>
       
       {items.length === 0 ? (
