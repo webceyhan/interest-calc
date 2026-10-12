@@ -1,9 +1,4 @@
-interface CalculationResult {
-  interest: number;
-  withholding: number;
-  netInterest: number;
-  finalAmount: number;
-}
+import type { CalculationResult } from "@/types";
 
 export const calculateDeposit = (
   amount: number,

@@ -1,8 +1,4 @@
-export interface BankData {
-  name: string;
-  interestRate: number;
-  reservedAmount: number;
-}
+import type { BankData } from "@/types";
 
 export const DEFAULT_BANKS: BankData[] = [
   {

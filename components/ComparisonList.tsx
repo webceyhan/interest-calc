@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { TranslationKeys } from "@/utils/translations";
+import type { ComparisonItem, TranslationKeys } from "@/types";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
-import { ComparisonListItem, type ComparisonItem } from "@/components/ComparisonListItem";
+import { ComparisonListItem } from "@/components/ComparisonListItem";
 
 export type { ComparisonItem };
 

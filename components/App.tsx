@@ -1,11 +1,12 @@
 import { useState } from "react";
+import type { ComparisonItem, Language } from "@/types";
 import { TopNav } from "@/components/TopNav";
 import { Header } from "@/components/Header";
 import { InputCard } from "@/components/InputCard";
 import { ResultCard } from "@/components/ResultCard";
-import { ComparisonList, type ComparisonItem } from "@/components/ComparisonList";
+import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
-import { translations, type Language } from "@/utils/translations";
+import { translations } from "@/utils/translations";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 

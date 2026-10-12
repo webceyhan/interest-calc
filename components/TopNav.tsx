@@ -1,4 +1,4 @@
-import type { Language, TranslationKeys } from "@/utils/translations";
+import type { Language, TranslationKeys } from "@/types";
 
 interface TopNavProps {
   language: Language;

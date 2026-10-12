@@ -1,15 +1,8 @@
 import { useRef, useEffect } from "react";
-import type { TranslationKeys } from "@/utils/translations";
+import type { ComparisonItem, TranslationKeys } from "@/types";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
 import { PenIcon } from "@/components/Icons";
-
-export interface ComparisonItem {
-  id: string;
-  bankName: string;
-  interestRate: number;
-  reservationAmount: number;
-}
 
 interface ComparisonListItemProps {
   item: ComparisonItem & {

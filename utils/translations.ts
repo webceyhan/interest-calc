@@ -1,38 +1,4 @@
-export type Language = "tr" | "en";
-
-export type TranslationKeys = {
-  title: string;
-  subtitle: string;
-  termDays: string;
-  amount: string;
-  interestRate: string;
-  compoundInterest: string;
-  dayCount: string;
-  interestRateLabel: string;
-  withholdingRate: string;
-  withholdingAmount: string;
-  netInterest: string;
-  finalAmount: string;
-  reservationAmount: string;
-  compare: string;
-  comparisons: string;
-  bankName: string;
-  enterBankName: string;
-  remove: string;
-  clearAll: string;
-  reset: string;
-  rounded: string;
-  precise: string;
-  noComparisons: string;
-  addBanksToCompare: string;
-  comparisonStep1: string;
-  comparisonStep2: string;
-  comparisonStep3: string;
-  share: string;
-  copied: string;
-  save: string;
-  cancel: string;
-};
+import type { Language, TranslationKeys } from "@/types";
 
 export const translations: Record<Language, TranslationKeys> = {
   tr: {
