@@ -53,7 +53,6 @@ export const UpdateButton = () => {
 
       if (response.ok) {
         alert("Banks updated successfully!");
-        await logout();
       } else {
         setError(data.error || "Failed to update banks");
       }
