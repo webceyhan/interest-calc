@@ -1,4 +1,4 @@
-import type { TranslationKeys } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 import { InputCardItem } from "@/components/InputCardItem";
 
 interface InputCardProps {
@@ -11,7 +11,6 @@ interface InputCardProps {
   onInterestRateChange: (value: number) => void;
   onReservationAmountChange: (value: number) => void;
   onCompare: () => void;
-  t: TranslationKeys;
 }
 
 export const InputCard = ({
@@ -24,8 +23,9 @@ export const InputCard = ({
   onInterestRateChange,
   onReservationAmountChange,
   onCompare,
-  t,
 }: InputCardProps) => {
+  const { t } = useTranslations();
+
   return (
     <div className="lg:col-span-2 rounded-3xl shadow-2xl overflow-hidden border border-gray-700 p-6 md:p-10">
       <div className="space-y-4 md:space-y-6">

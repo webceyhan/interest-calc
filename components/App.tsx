@@ -92,12 +92,11 @@ function AppContent() {
           onLanguageChange={setLanguage}
           isRounded={isRounded}
           onRoundedChange={setIsRounded}
-          t={t}
         />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <Header t={t} />
+        <Header />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-12 mb-8 md:mb-12">
           <InputCard
@@ -110,7 +109,6 @@ function AppContent() {
             onInterestRateChange={setInterestRate}
             onReservationAmountChange={setReservationAmount}
             onCompare={handleCompare}
-            t={t}
           />
 
           <ResultCard
@@ -121,7 +119,6 @@ function AppContent() {
             finalAmount={finalAmount}
             withholdingRate={WITHHOLDING_RATE}
             isRounded={isRounded}
-            t={t}
           />
         </div>
 
@@ -133,7 +130,6 @@ function AppContent() {
           onRemove={handleRemoveComparison}
           onReset={handleReset}
           onUpdate={handleUpdateComparison}
-          t={t}
         />
       </div>
 
@@ -142,7 +138,6 @@ function AppContent() {
         placeholder={t.enterBankName}
         onSubmit={handleDialogSubmit}
         onCancel={handleDialogCancel}
-        t={t}
       />
     </div>
   );

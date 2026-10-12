@@ -1,11 +1,11 @@
-import type { Language, TranslationKeys } from "@/types";
+import type { Language } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 
 interface TopNavProps {
   language: Language;
   onLanguageChange: (lang: Language) => void;
   isRounded: boolean;
   onRoundedChange: (rounded: boolean) => void;
-  t: TranslationKeys;
 }
 
 export const TopNav = ({
@@ -13,8 +13,9 @@ export const TopNav = ({
   onLanguageChange,
   isRounded,
   onRoundedChange,
-  t,
 }: TopNavProps) => {
+  const { t } = useTranslations();
+
   return (
     <div className="flex items-center justify-end gap-6 py-4 md:py-6">
       <label className="flex items-center gap-2 cursor-pointer">

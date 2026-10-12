@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import type { Language, TranslationKeys } from "@/types";
-import { translations } from "@/i18n";
+import type { Language } from "@/types";
+import { translations, type TranslationKeys } from "@/i18n";
 import { DEFAULT_LANGUAGE } from "@/constants";
 
 interface TranslationsContextType {

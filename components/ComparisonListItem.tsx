@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
-import type { ComparisonItem, TranslationKeys } from "@/types";
+import type { ComparisonItem } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
@@ -23,7 +24,6 @@ interface ComparisonListItemProps {
   onRemove: () => void;
   onEditRateChange: (value: number) => void;
   onEditReservedChange: (value: number) => void;
-  t: TranslationKeys;
 }
 
 export const ComparisonListItem = ({
@@ -41,8 +41,8 @@ export const ComparisonListItem = ({
   onRemove,
   onEditRateChange,
   onEditReservedChange,
-  t,
 }: ComparisonListItemProps) => {
+  const { t } = useTranslations();
   const rateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

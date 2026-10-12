@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { ComparisonItem, TranslationKeys } from "@/types";
+import type { ComparisonItem } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
@@ -16,10 +17,10 @@ interface ComparisonListProps {
   onRemove: (id: string) => void;
   onReset: () => void;
   onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
-  t: TranslationKeys;
 }
 
-export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onReset, onUpdate, t }: ComparisonListProps) => {
+export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onReset, onUpdate }: ComparisonListProps) => {
+  const { t } = useTranslations();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
@@ -151,7 +152,6 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
               onRemove={() => onRemove(item.id)}
               onEditRateChange={setEditRate}
               onEditReservedChange={setEditReserved}
-              t={t}
             />
           ))}
         </div>

@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import type { TranslationKeys } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 
 interface NameDialogProps {
   isOpen: boolean;
   placeholder: string;
   onSubmit: (name: string) => void;
   onCancel: () => void;
-  t?: TranslationKeys;
 }
 
-export const NameDialog = ({ isOpen, placeholder, onSubmit, onCancel, t }: NameDialogProps) => {
+export const NameDialog = ({ isOpen, placeholder, onSubmit, onCancel }: NameDialogProps) => {
+  const { t } = useTranslations();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
@@ -51,7 +51,7 @@ export const NameDialog = ({ isOpen, placeholder, onSubmit, onCancel, t }: NameD
     >
       <div className="p-6">
         <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
-          {t?.enterBankName || "Enter Bank Name"}
+          {t.enterBankName}
         </h2>
         <input
           ref={inputRef}
@@ -67,13 +67,13 @@ export const NameDialog = ({ isOpen, placeholder, onSubmit, onCancel, t }: NameD
             onClick={handleCancel}
             className="px-4 py-2 text-sm font-bold text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
           >
-            {t?.cancel || "Cancel"}
+            {t.cancel}
           </button>
           <button
             onClick={handleSubmit}
             className="px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
           >
-            {t?.compare || "Add"}
+            {t.compare}
           </button>
         </div>
       </div>

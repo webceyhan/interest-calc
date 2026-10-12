@@ -1,4 +1,4 @@
-import type { TranslationKeys } from "@/types";
+import { useTranslations } from "@/contexts/TranslationsContext";
 import { formatCurrency } from "@/utils/formatting";
 import {
   CalendarIcon,
@@ -17,7 +17,6 @@ interface ResultsCardProps {
   finalAmount: number;
   withholdingRate: number;
   isRounded: boolean;
-  t: TranslationKeys;
 }
 
 export const ResultCard = ({
@@ -28,8 +27,9 @@ export const ResultCard = ({
   finalAmount,
   withholdingRate,
   isRounded,
-  t,
 }: ResultsCardProps) => {
+  const { t } = useTranslations();
+
   return (
     <div className="lg:col-span-3 bg-linear-to-br from-slate-800 to-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 p-4 md:p-10">
       <div className="space-y-4 md:space-y-6">
