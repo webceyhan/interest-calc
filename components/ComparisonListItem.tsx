@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
-import type { TranslationKeys } from "../utils/translations";
-import { formatCurrency } from "../utils/formatting";
-import { calculateDeposit } from "../utils/calculations";
-import { PenIcon } from "./Icons";
+import type { TranslationKeys } from "@/utils/translations";
+import { formatCurrency } from "@/utils/formatting";
+import { calculateDeposit } from "@/utils/calculations";
+import { PenIcon } from "@/components/Icons";
 
 export interface ComparisonItem {
   id: string;

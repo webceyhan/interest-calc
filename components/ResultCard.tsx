@@ -1,13 +1,13 @@
-import type { TranslationKeys } from "../utils/translations";
-import { formatCurrency } from "../utils/formatting";
+import type { TranslationKeys } from "@/utils/translations";
+import { formatCurrency } from "@/utils/formatting";
 import {
   CalendarIcon,
   PercentIcon,
   InterestRateIcon,
   DepositMoneyIcon,
   FinalEarningsIcon,
-} from "./Icons";
-import { ResultCardItem } from "./ResultCardItem";
+} from "@/components/Icons";
+import { ResultCardItem } from "@/components/ResultCardItem";
 
 interface ResultsCardProps {
   termDays: number;

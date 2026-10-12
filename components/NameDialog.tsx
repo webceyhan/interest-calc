@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { TranslationKeys } from "../utils/translations";
+import type { TranslationKeys } from "@/utils/translations";
 
 interface NameDialogProps {
   isOpen: boolean;

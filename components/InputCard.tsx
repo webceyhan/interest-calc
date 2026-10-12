@@ -1,5 +1,5 @@
-import type { TranslationKeys } from "../utils/translations";
-import { InputCardItem } from "./InputCardItem";
+import type { TranslationKeys } from "@/utils/translations";
+import { InputCardItem } from "@/components/InputCardItem";
 
 interface InputCardProps {
   amount: number;

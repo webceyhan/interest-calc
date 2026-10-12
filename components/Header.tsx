@@ -1,4 +1,4 @@
-import type { TranslationKeys } from "../utils/translations";
+import type { TranslationKeys } from "@/utils/translations";
 
 interface HeaderProps {
   t: TranslationKeys;
