@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import type { Language } from "@/types";
 import { translations, type TranslationKeys } from "@/i18n";
 import { DEFAULT_LANGUAGE } from "@/constants";
@@ -9,7 +9,7 @@ interface TranslationsContextType {
   t: TranslationKeys;
 }
 
-const TranslationsContext = createContext<TranslationsContextType | undefined>(undefined);
+export const TranslationsContext = createContext<TranslationsContextType | undefined>(undefined);
 
 export const TranslationsProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
@@ -20,12 +20,4 @@ export const TranslationsProvider = ({ children }: { children: React.ReactNode }
       {children}
     </TranslationsContext.Provider>
   );
-};
-
-export const useTranslations = () => {
-  const context = useContext(TranslationsContext);
-  if (!context) {
-    throw new Error("useTranslations must be used within TranslationsProvider");
-  }
-  return context;
 };

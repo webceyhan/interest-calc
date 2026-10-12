@@ -1,4 +1,4 @@
-import { useTranslations } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 import { formatCurrency } from "@/utils/formatting";
 import {
   CalendarIcon,

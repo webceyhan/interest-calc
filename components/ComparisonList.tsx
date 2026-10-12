@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ComparisonItem } from "@/types";
-import { useTranslations } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";

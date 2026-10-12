@@ -1,4 +1,4 @@
-import { useTranslations } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 import { InputCardItem } from "@/components/InputCardItem";
 
 interface InputCardProps {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface NameDialogProps {
   isOpen: boolean;

@@ -1,5 +1,5 @@
 import type { Language } from "@/types";
-import { useTranslations } from "@/contexts/TranslationsContext";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface TopNavProps {
   language: Language;
