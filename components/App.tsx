@@ -14,23 +14,13 @@ import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { useCalculator } from "@/hooks/useCalculator";
 import { useBankProductList } from "@/hooks/useBankProductList";
-import { calculateDeposit } from "@/utils/calculations";
-import { WITHHOLDING_RATE } from "@/constants";
 
 function AppContent() {
   const { language, setLanguage } = useTranslations();
   useNumberFormat(); // Ensure context is available to children
-  const { amount, termDays, interestRate, reservationAmount } = useCalculator();
+  const { interestRate, reservationAmount } = useCalculator();
   const { addProduct } = useBankProductList();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const { withholding, netInterest, finalAmount } = calculateDeposit(
-    amount,
-    termDays,
-    interestRate,
-    WITHHOLDING_RATE,
-    reservationAmount
-  );
 
   const handleCompare = () => {
     setIsDialogOpen(true);
@@ -66,12 +56,7 @@ function AppContent() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-12 mb-8 md:mb-12">
           <InputCard onCompare={handleCompare} />
 
-          <ResultCard
-            withholding={withholding}
-            netInterest={netInterest}
-            finalAmount={finalAmount}
-            withholdingRate={WITHHOLDING_RATE}
-          />
+          <ResultCard />
         </div>
 
         <ComparisonList />

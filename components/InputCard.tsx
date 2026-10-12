@@ -8,7 +8,16 @@ interface InputCardProps {
 
 export const InputCard = ({ onCompare }: InputCardProps) => {
   const { t } = useTranslations();
-  const { amount, termDays, interestRate, reservationAmount, setAmount, setTermDays, setInterestRate, setReservationAmount } = useCalculator();
+  const {
+    amount,
+    termDays,
+    interestRate,
+    reservationAmount,
+    setAmount,
+    setTermDays,
+    setInterestRate,
+    setReservationAmount,
+  } = useCalculator();
 
   return (
     <div className="lg:col-span-2 rounded-3xl shadow-2xl overflow-hidden border border-gray-700 p-6 md:p-10">

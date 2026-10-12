@@ -1,6 +1,8 @@
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
+import { calculateDeposit } from "@/utils/calculations";
+import { WITHHOLDING_RATE } from "@/constants";
 import {
   CalendarIcon,
   PercentIcon,
@@ -10,22 +12,18 @@ import {
 } from "@/components/Icons";
 import { ResultCardItem } from "@/components/ResultCardItem";
 
-interface ResultsCardProps {
-  withholding: number;
-  netInterest: number;
-  finalAmount: number;
-  withholdingRate: number;
-}
-
-export const ResultCard = ({
-  withholding,
-  netInterest,
-  finalAmount,
-  withholdingRate,
-}: ResultsCardProps) => {
+export const ResultCard = () => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
-  const { termDays, interestRate } = useCalculator();
+  const { amount, termDays, interestRate, reservationAmount } = useCalculator();
+
+  const { withholding, netInterest, finalAmount } = calculateDeposit(
+    amount,
+    termDays,
+    interestRate,
+    WITHHOLDING_RATE,
+    reservationAmount
+  );
 
   return (
     <div className="lg:col-span-3 bg-linear-to-br from-slate-800 to-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 p-4 md:p-10">
@@ -47,7 +45,7 @@ export const ResultCard = ({
           <ResultCardItem
             icon={<InterestRateIcon />}
             label={t.withholdingRate}
-            value={`%${withholdingRate}`}
+            value={`%${WITHHOLDING_RATE}`}
           />
           <ResultCardItem
             icon={<DepositMoneyIcon />}
