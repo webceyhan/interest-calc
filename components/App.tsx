@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TopNav } from "./TopNav";
 import { Header } from "./Header";
 import { InputCard } from "./InputCard";
@@ -20,16 +20,14 @@ function App() {
   const [isRounded, setIsRounded] = useState<boolean>(true);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  useEffect(() => {
-    const initialComparisons = DEFAULT_BANKS.map((bank, index) => ({
+  const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
+    DEFAULT_BANKS.map((bank, index) => ({
       id: `bank-${index}`,
       bankName: bank.name,
       interestRate: bank.interestRate,
       reservationAmount: bank.reservedAmount,
-    }));
-    setComparisons(initialComparisons);
-  }, []);
+    }))
+  );
 
   const t = translations[language];
   const { withholding, netInterest, finalAmount } = calculateDeposit(
