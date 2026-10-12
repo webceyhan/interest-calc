@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { Button } from "@/components/Button";
@@ -12,6 +12,16 @@ export const UpdateButton = () => {
   const [error, setError] = useState("");
   const { items } = useBankProductList();
 
+  // Restore password from localStorage on mount
+  useEffect(() => {
+    if (isAuthenticated) {
+      const stored = localStorage.getItem("admin_password");
+      if (stored) {
+        setPassword(stored);
+      }
+    }
+  }, [isAuthenticated]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -19,8 +29,8 @@ export const UpdateButton = () => {
 
     const success = await login(password);
     if (success) {
+      localStorage.setItem("admin_password", password);
       setShowAuthModal(false);
-      setPassword("");
     } else {
       setError("Invalid password");
     }
@@ -51,8 +61,8 @@ export const UpdateButton = () => {
 
       if (response.ok) {
         alert("Banks updated successfully!");
-        setPassword("");
         logout();
+        localStorage.removeItem("admin_password");
       } else {
         setError(data.error || "Failed to update banks");
       }
