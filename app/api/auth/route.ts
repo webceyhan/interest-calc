@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     response.cookies.set(TOKEN_COOKIE_NAME, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: TOKEN_EXPIRY_MS / 1000,
       path: "/",
     });
@@ -62,7 +62,7 @@ export async function DELETE(request: NextRequest) {
     response.cookies.set(TOKEN_COOKIE_NAME, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 0,
       path: "/",
     });
