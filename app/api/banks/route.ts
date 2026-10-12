@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
   try {
     const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
-    if (!token || !validateToken(token)) {
+    if (!token || !await validateToken(token)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

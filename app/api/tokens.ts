@@ -1,38 +1,37 @@
 import { randomBytes } from "crypto";
+import { getDatabase } from "@/lib/mongodb";
 
-// Shared in-memory token store
-// For production with multiple instances, migrate to Redis or session database
-const tokens = new Map<string, { expiresAt: number }>();
-
-// Cleanup expired tokens every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [token, data] of tokens) {
-    if (now > data.expiresAt) {
-      tokens.delete(token);
-    }
-  }
-}, 5 * 60 * 1000);
-
-export function generateToken(): string {
+export async function generateToken(): Promise<string> {
   const token = randomBytes(32).toString("hex");
-  const expiresAt = Date.now() + 3600000; // 1 hour
-  tokens.set(token, { expiresAt });
+  const expiresAt = new Date(Date.now() + 3600000); // 1 hour
+
+  const db = getDatabase();
+  const collection = db.collection("admin_tokens");
+  
+  await collection.insertOne({
+    token,
+    expiresAt,
+    createdAt: new Date(),
+  });
+
   return token;
 }
 
-export function validateToken(token: string): boolean {
-  const tokenData = tokens.get(token);
-  if (!tokenData) return false;
+export async function validateToken(token: string): Promise<boolean> {
+  const db = getDatabase();
+  const collection = db.collection("admin_tokens");
   
-  if (Date.now() > tokenData.expiresAt) {
-    tokens.delete(token);
-    return false;
-  }
-  
-  return true;
+  const tokenData = await collection.findOne({
+    token,
+    expiresAt: { $gt: new Date() },
+  } as any);
+
+  return !!tokenData;
 }
 
-export function invalidateToken(token: string): void {
-  tokens.delete(token);
+export async function invalidateToken(token: string): Promise<void> {
+  const db = getDatabase();
+  const collection = db.collection("admin_tokens");
+  
+  await collection.deleteOne({ token } as any);
 }

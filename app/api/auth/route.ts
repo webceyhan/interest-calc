@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
 
-    const token = generateToken();
+    const token = await generateToken();
     const response = NextResponse.json({ success: true });
     
     // Set httpOnly cookie (not accessible from JavaScript)
@@ -53,7 +53,7 @@ export async function DELETE(request: NextRequest) {
     const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (token) {
-      invalidateToken(token);
+      await invalidateToken(token);
     }
 
     const response = NextResponse.json({ success: true });
@@ -85,8 +85,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Validate token
-    const { validateToken } = await import("../tokens");
-    if (!validateToken(token)) {
+    if (!await validateToken(token)) {
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
