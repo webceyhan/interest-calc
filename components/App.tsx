@@ -23,9 +23,7 @@ function AppContent() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Header />
 
-        <div className="mb-8 md:mb-12">
-          <Calculator />
-        </div>
+        <Calculator />
 
         <ComparisonList />
       </div>
