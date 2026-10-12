@@ -7,7 +7,9 @@ import { ResultCard } from "@/components/ResultCard";
 import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
+import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { useTranslations } from "@/hooks/useTranslations";
+import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 import {
@@ -16,16 +18,15 @@ import {
   DEFAULT_TERM_DAYS,
   DEFAULT_INTEREST_RATE,
   DEFAULT_RESERVATION_AMOUNT,
-  DEFAULT_IS_ROUNDED,
 } from "@/constants";
 
 function AppContent() {
-  const { language, setLanguage, t } = useTranslations();
+  const { language, setLanguage } = useTranslations();
+  useNumberFormat(); // Ensure context is available to children
   const [amount, setAmount] = useState<number>(DEFAULT_AMOUNT);
   const [termDays, setTermDays] = useState<number>(DEFAULT_TERM_DAYS);
   const [interestRate, setInterestRate] = useState<number>(DEFAULT_INTEREST_RATE);
   const [reservationAmount, setReservationAmount] = useState<number>(DEFAULT_RESERVATION_AMOUNT);
-  const [isRounded, setIsRounded] = useState<boolean>(DEFAULT_IS_ROUNDED);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
     DEFAULT_BANKS.map((bank, index) => ({
@@ -91,8 +92,6 @@ function AppContent() {
         <TopNav
           language={language}
           onLanguageChange={setLanguage}
-          isRounded={isRounded}
-          onRoundedChange={setIsRounded}
         />
       </div>
 
@@ -119,7 +118,6 @@ function AppContent() {
             netInterest={netInterest}
             finalAmount={finalAmount}
             withholdingRate={WITHHOLDING_RATE}
-            isRounded={isRounded}
           />
         </div>
 
@@ -127,7 +125,6 @@ function AppContent() {
           items={comparisons}
           amount={amount}
           termDays={termDays}
-          isRounded={isRounded}
           onRemove={handleRemoveComparison}
           onReset={handleReset}
           onUpdate={handleUpdateComparison}
@@ -136,7 +133,7 @@ function AppContent() {
 
       <NameDialog
         isOpen={isDialogOpen}
-        placeholder={t.enterBankName}
+        placeholder=""
         onSubmit={handleDialogSubmit}
         onCancel={handleDialogCancel}
       />
@@ -147,7 +144,9 @@ function AppContent() {
 function App() {
   return (
     <TranslationsProvider>
-      <AppContent />
+      <NumberFormatProvider>
+        <AppContent />
+      </NumberFormatProvider>
     </TranslationsProvider>
   );
 }

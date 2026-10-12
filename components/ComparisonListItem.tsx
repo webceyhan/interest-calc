@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
-import { formatCurrency } from "@/utils/formatting";
+import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon } from "@/components/Icons";
@@ -17,7 +17,6 @@ interface ComparisonListItemProps {
   editReserved: number;
   amount: number;
   termDays: number;
-  isRounded: boolean;
   onStartEditing: () => void;
   onSaveEditing: () => void;
   onCancelEditing: () => void;
@@ -34,7 +33,6 @@ export const ComparisonListItem = ({
   editReserved,
   amount,
   termDays,
-  isRounded,
   onStartEditing,
   onSaveEditing,
   onCancelEditing,
@@ -43,6 +41,7 @@ export const ComparisonListItem = ({
   onEditReservedChange,
 }: ComparisonListItemProps) => {
   const { t } = useTranslations();
+  const formatCurrency = useFormatCurrency();
   const rateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -117,7 +116,7 @@ export const ComparisonListItem = ({
                 {t.netInterest}
               </p>
               <p className="text-lg md:text-xl font-black text-white">
-                {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).netInterest, isRounded)}
+                {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).netInterest)}
               </p>
             </div>
             <div>
@@ -125,7 +124,7 @@ export const ComparisonListItem = ({
                 {t.finalAmount}
               </p>
               <p className="text-lg md:text-xl font-black text-white">
-                {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).finalAmount, isRounded)}
+                {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).finalAmount)}
               </p>
             </div>
           </div>
@@ -158,7 +157,7 @@ export const ComparisonListItem = ({
               {t.reservationAmount}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
-              {formatCurrency(item.reservationAmount, isRounded)}
+              {formatCurrency(item.reservationAmount)}
             </p>
           </div>
 
@@ -167,7 +166,7 @@ export const ComparisonListItem = ({
               {t.netInterest}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
-              {formatCurrency(item.netInterest, isRounded)}
+              {formatCurrency(item.netInterest)}
             </p>
           </div>
 
@@ -176,7 +175,7 @@ export const ComparisonListItem = ({
               {t.finalAmount}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
-              {formatCurrency(item.finalAmount, isRounded)}
+              {formatCurrency(item.finalAmount)}
             </p>
           </div>
         </div>

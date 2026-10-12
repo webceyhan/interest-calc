@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
-import { formatCurrency } from "@/utils/formatting";
+import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
@@ -13,14 +13,14 @@ interface ComparisonListProps {
   items: ComparisonItem[];
   amount: number;
   termDays: number;
-  isRounded: boolean;
   onRemove: (id: string) => void;
   onReset: () => void;
   onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
 }
 
-export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onReset, onUpdate }: ComparisonListProps) => {
+export const ComparisonList = ({ items, amount, termDays, onRemove, onReset, onUpdate }: ComparisonListProps) => {
   const { t } = useTranslations();
+  const formatCurrency = useFormatCurrency();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
@@ -50,8 +50,8 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
       .map((item, i) => {
         const bankName = item.bankName.padEnd(maxBankLength);
         const rate = `%${item.interestRate.toFixed(1)}`.padStart(5);
-        const net = formatCurrency(item.netInterest, isRounded).padStart(10);
-        const final = formatCurrency(item.finalAmount, isRounded).padStart(10);
+        const net = formatCurrency(item.netInterest).padStart(10);
+        const final = formatCurrency(item.finalAmount).padStart(10);
         const star = i === 0 ? "  ⭐" : "";
         return `${bankName}  ${rate}  Net: ${net}  Final: ${final}${star}`;
       })
@@ -145,7 +145,6 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
               editReserved={editReserved}
               amount={amount}
               termDays={termDays}
-              isRounded={isRounded}
               onStartEditing={() => handleStartEditing(item)}
               onSaveEditing={() => handleSaveEditing(item.id)}
               onCancelEditing={handleCancelEditing}

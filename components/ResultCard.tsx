@@ -1,5 +1,5 @@
 import { useTranslations } from "@/hooks/useTranslations";
-import { formatCurrency } from "@/utils/formatting";
+import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import {
   CalendarIcon,
   PercentIcon,
@@ -16,7 +16,6 @@ interface ResultsCardProps {
   netInterest: number;
   finalAmount: number;
   withholdingRate: number;
-  isRounded: boolean;
 }
 
 export const ResultCard = ({
@@ -26,9 +25,9 @@ export const ResultCard = ({
   netInterest,
   finalAmount,
   withholdingRate,
-  isRounded,
 }: ResultsCardProps) => {
   const { t } = useTranslations();
+  const formatCurrency = useFormatCurrency();
 
   return (
     <div className="lg:col-span-3 bg-linear-to-br from-slate-800 to-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 p-4 md:p-10">
@@ -55,7 +54,7 @@ export const ResultCard = ({
           <ResultCardItem
             icon={<DepositMoneyIcon />}
             label={t.withholdingAmount}
-            value={formatCurrency(withholding, isRounded)}
+            value={formatCurrency(withholding)}
           />
         </div>
 
@@ -63,7 +62,7 @@ export const ResultCard = ({
         <ResultCardItem
           icon={<FinalEarningsIcon />}
           label={t.netInterest}
-          value={formatCurrency(netInterest, isRounded)}
+          value={formatCurrency(netInterest)}
           large
         />
 
@@ -71,7 +70,7 @@ export const ResultCard = ({
         <ResultCardItem
           icon={<FinalEarningsIcon />}
           label={t.finalAmount}
-          value={formatCurrency(finalAmount, isRounded)}
+          value={formatCurrency(finalAmount)}
           large
         />
       </div>

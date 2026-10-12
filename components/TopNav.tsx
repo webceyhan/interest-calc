@@ -1,20 +1,18 @@
 import type { Language } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
+import { useNumberFormat } from "@/hooks/useNumberFormat";
 
 interface TopNavProps {
   language: Language;
   onLanguageChange: (lang: Language) => void;
-  isRounded: boolean;
-  onRoundedChange: (rounded: boolean) => void;
 }
 
 export const TopNav = ({
   language,
   onLanguageChange,
-  isRounded,
-  onRoundedChange,
 }: TopNavProps) => {
   const { t } = useTranslations();
+  const { isRounded, setIsRounded } = useNumberFormat();
 
   return (
     <div className="flex items-center justify-end gap-6 py-4 md:py-6">
@@ -22,7 +20,7 @@ export const TopNav = ({
         <input
           type="checkbox"
           checked={isRounded}
-          onChange={(e) => onRoundedChange(e.target.checked)}
+          onChange={(e) => setIsRounded(e.target.checked)}
           className="w-5 h-5 accent-blue-500 cursor-pointer"
           title={isRounded ? t.rounded : t.precise}
         />
