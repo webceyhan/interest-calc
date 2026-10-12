@@ -1,7 +1,18 @@
 import { randomBytes } from "crypto";
 
 // Shared in-memory token store
+// For production with multiple instances, migrate to Redis or session database
 const tokens = new Map<string, { expiresAt: number }>();
+
+// Cleanup expired tokens every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [token, data] of tokens) {
+    if (now > data.expiresAt) {
+      tokens.delete(token);
+    }
+  }
+}, 5 * 60 * 1000);
 
 export function generateToken(): string {
   const token = randomBytes(32).toString("hex");

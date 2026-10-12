@@ -5,7 +5,7 @@ import { Button } from "@/components/Button";
 import { SaveIcon, LoginIcon } from "@/components/Icons";
 
 export const UpdateButton = () => {
-  const { isAuthenticated, token, login, logout } = useAuth();
+  const { isAuthenticated, login, logout } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,8 +29,6 @@ export const UpdateButton = () => {
   };
 
   const handleUpdate = async () => {
-    if (!token) return;
-    
     setLoading(true);
     setError("");
 
@@ -45,8 +43,8 @@ export const UpdateButton = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
         },
+        credentials: "include", // Include httpOnly cookie
         body: JSON.stringify(banksData),
       });
 

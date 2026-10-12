@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  token: string | null;
   login: (password: string) => Promise<boolean>;
   logout: () => void;
 }
@@ -15,31 +14,41 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Restore token from localStorage on mount
-    const stored = localStorage.getItem("admin_token");
-    if (stored) {
-      setToken(stored);
-      setIsAuthenticated(true);
-    }
+    // Check if session exists by calling a protected endpoint
+    // Token is automatically sent via httpOnly cookie by the browser
+    checkAuthStatus();
   }, []);
+
+  const checkAuthStatus = async () => {
+    try {
+      const response = await fetch("/api/auth/status", {
+        method: "GET",
+        credentials: "include", // Include cookies
+      });
+
+      if (response.ok) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch {
+      setIsAuthenticated(false);
+    }
+  };
 
   const login = async (password: string): Promise<boolean> => {
     try {
       const response = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include", // Include cookies in response
         body: JSON.stringify({ password }),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.token) {
-        setToken(data.token);
+      if (response.ok) {
         setIsAuthenticated(true);
-        localStorage.setItem("admin_token", data.token);
         return true;
       }
       return false;
@@ -49,23 +58,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = async () => {
-    if (token) {
-      try {
-        await fetch("/api/auth", {
-          method: "DELETE",
-          headers: { "Authorization": `Bearer ${token}` },
-        });
-      } catch {
-        // Ignore errors on logout
-      }
+    try {
+      await fetch("/api/auth", {
+        method: "DELETE",
+        credentials: "include", // Include cookies
+      });
+    } catch {
+      // Ignore errors on logout
     }
     setIsAuthenticated(false);
-    setToken(null);
-    localStorage.removeItem("admin_token");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, token, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

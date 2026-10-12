@@ -4,6 +4,8 @@ import { join } from "path";
 import { validateToken } from "../tokens";
 import type { BankData } from "@/types";
 
+const TOKEN_COOKIE_NAME = "admin_token";
+
 export async function GET() {
   try {
     const filePath = join(process.cwd(), "public", "banks.json");
@@ -11,15 +13,18 @@ export async function GET() {
     const banks: BankData[] = JSON.parse(data);
     return NextResponse.json(banks);
   } catch (error) {
-    console.error("Error loading banks:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error loading banks:", error);
+    } else {
+      console.error("Error loading banks");
+    }
     return NextResponse.json({ error: "Failed to load banks" }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get("authorization");
-    const token = authHeader?.replace("Bearer ", "");
+    const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!token || !validateToken(token)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -42,7 +47,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, message: "Banks updated successfully" });
   } catch (error) {
-    console.error("Error updating banks:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error updating banks:", error);
+    } else {
+      console.error("Error updating banks");
+    }
     return NextResponse.json({ error: "Failed to update banks" }, { status: 500 });
   }
 }
