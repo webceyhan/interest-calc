@@ -128,7 +128,7 @@ function App() {
           termDays={termDays}
           isRounded={isRounded}
           onRemove={handleRemoveComparison}
-          onClearAll={handleReset}
+          onReset={handleReset}
           onUpdate={handleUpdateComparison}
           t={t}
         />

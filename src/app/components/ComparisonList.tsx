@@ -28,14 +28,14 @@ interface ComparisonListProps {
   termDays: number;
   isRounded: boolean;
   onRemove: (id: string) => void;
-  onClearAll: () => void;
+  onReset: () => void;
   onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
   t: TranslationKeys;
 }
 
 const WITHHOLDING_RATE = 17.5;
 
-export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onClearAll, onUpdate, t }: ComparisonListProps) => {
+export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onReset, onUpdate, t }: ComparisonListProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
@@ -87,20 +87,20 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
     }
   };
 
-  const startEditing = (item: ComparisonItem) => {
+  const handleStartEditing = (item: ComparisonItem) => {
     setEditingId(item.id);
     setEditRate(item.interestRate);
     setEditReserved(item.reservationAmount);
   };
 
-  const saveEditing = (id: string) => {
+  const handleSaveEditing = (id: string) => {
     if (onUpdate) {
       onUpdate(id, { interestRate: editRate, reservationAmount: editReserved });
     }
     setEditingId(null);
   };
 
-  const cancelEditing = () => {
+  const handleCancelEditing = () => {
     setEditingId(null);
   };
 
@@ -119,7 +119,7 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
               <ShareIcon />
             </button>
             <button
-              onClick={onClearAll}
+              onClick={onReset}
               className="md:hidden p-2 text-slate-300 hover:text-blue-400 transition-all active:scale-90">
               <ResetIcon />
             </button>
@@ -132,7 +132,7 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
               {t.share}
             </button>
             <button
-              onClick={onClearAll}
+              onClick={onReset}
               className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg transition-all duration-200 uppercase tracking-wide hover:shadow-md active:scale-95">
               <ResetIcon />
               {t.reset}
@@ -180,7 +180,7 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
                 </div>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => startEditing(item)}
+                    onClick={() => handleStartEditing(item)}
                     className="text-lg font-bold text-slate-400 hover:text-slate-200 transition-colors shrink-0 w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded-lg">
                     <PenIcon />
                   </button>
@@ -238,12 +238,12 @@ export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, o
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => saveEditing(item.id)}
+                      onClick={() => handleSaveEditing(item.id)}
                       className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all active:scale-95">
                       {t.save}
                     </button>
                     <button
-                      onClick={cancelEditing}
+                      onClick={handleCancelEditing}
                       className="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-all active:scale-95">
                       {t.cancel}
                     </button>
