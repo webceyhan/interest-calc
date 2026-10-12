@@ -5,6 +5,7 @@ import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";
 import { BankProductListProvider } from "@/contexts/BankProductListContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 function AppContent() {
   return (
@@ -24,7 +25,9 @@ function App() {
       <NumberFormatProvider>
         <CalculatorProvider>
           <BankProductListProvider>
-            <AppContent />
+            <AuthProvider>
+              <AppContent />
+            </AuthProvider>
           </BankProductListProvider>
         </CalculatorProvider>
       </NumberFormatProvider>

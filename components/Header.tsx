@@ -2,6 +2,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { RoundingSelector } from "@/components/RoundingSelector";
 import { GithubLink } from "@/components/GithubLink";
+import { UpdateButton } from "@/components/UpdateButton";
 
 export const Header = () => {
   const { t } = useTranslations();
@@ -18,6 +19,7 @@ export const Header = () => {
       </div>
 
       <div className="flex justify-end items-center gap-2 mb-4">
+        <UpdateButton />
         <RoundingSelector />
         <LanguageSelector />
         <GithubLink />
