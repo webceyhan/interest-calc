@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { Button } from "@/components/Button";
-import { RefreshIcon } from "@/components/Icons";
+import { SaveIcon } from "@/components/Icons";
 
 export const UpdateButton = () => {
   const { isAuthenticated, login, logout } = useAuth();
@@ -65,7 +65,7 @@ export const UpdateButton = () => {
           onClick={() => setShowAuthModal(true)}
           title="Admin panel"
         >
-          <RefreshIcon />
+          <SaveIcon />
         </Button>
 
         {showAuthModal && (
@@ -117,7 +117,7 @@ export const UpdateButton = () => {
       onClick={handleUpdate}
       title="Update bank data"
     >
-      <RefreshIcon />
+      <SaveIcon />
     </Button>
   );
 };
