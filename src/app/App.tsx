@@ -77,7 +77,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-950">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-6">
         <TopNav
           language={language}
           onLanguageChange={setLanguage}
