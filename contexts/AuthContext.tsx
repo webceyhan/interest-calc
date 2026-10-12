@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch("/api/auth/status", {
+      const response = await fetch("/api/auth", {
         method: "GET",
         credentials: "include", // Include cookies
       });
@@ -33,7 +33,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       } else {
         setIsAuthenticated(false);
       }
-    } catch {
+    } catch (error) {
+      // Handle both network errors and 404s gracefully
       setIsAuthenticated(false);
     }
   };
