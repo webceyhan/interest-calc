@@ -8,15 +8,15 @@ export async function generateToken(): Promise<string> {
   const db = getDatabase();
   const collection = db.collection("admin_tokens");
   
-  await collection.insertOne({
+  console.error("[TOKEN_GENERATE] Creating token:", token.slice(0, 8) + "...", "Expires:", expiresAt.toISOString());
+  
+  const result = await collection.insertOne({
     token,
     expiresAt,
     createdAt: new Date(),
   });
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("Token generated:", { token: token.slice(0, 8) + "...", expiresAt });
-  }
+  console.error("[TOKEN_GENERATE] Inserted:", result.insertedId);
 
   return token;
 }
@@ -26,20 +26,20 @@ export async function validateToken(token: string): Promise<boolean> {
     const db = getDatabase();
     const collection = db.collection("admin_tokens");
     
+    const now = new Date();
+    console.error("[TOKEN_VALIDATE] Token:", token.slice(0, 8) + "...", "Now:", now.toISOString());
+    
     const tokenData = await collection.findOne({
       token,
-      expiresAt: { $gt: new Date() },
+      expiresAt: { $gt: now },
     } as any);
 
     const isValid = !!tokenData;
-    
-    if (process.env.NODE_ENV === "development") {
-      console.log("Token validation:", { token: token.slice(0, 8) + "...", isValid, found: !!tokenData });
-    }
+    console.error("[TOKEN_VALIDATE] Found:", isValid, "Data:", tokenData ? "exists" : "null");
     
     return isValid;
   } catch (error) {
-    console.error("Token validation error:", error);
+    console.error("[TOKEN_VALIDATE] Error:", error);
     return false;
   }
 }
