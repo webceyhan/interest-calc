@@ -9,26 +9,20 @@ import { NameDialog } from "@/components/NameDialog";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";
+import { BankProductListProvider } from "@/contexts/BankProductListContext";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { useCalculator } from "@/hooks/useCalculator";
+import { useBankProductList } from "@/hooks/useBankProductList";
 import { calculateDeposit } from "@/utils/calculations";
-import { DEFAULT_BANKS } from "@/utils/banks";
 import { WITHHOLDING_RATE } from "@/constants";
 
 function AppContent() {
   const { language, setLanguage } = useTranslations();
   useNumberFormat(); // Ensure context is available to children
   const { amount, termDays, interestRate, reservationAmount } = useCalculator();
+  const { addProduct } = useBankProductList();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
-    DEFAULT_BANKS.map((bank, index) => ({
-      id: `bank-${index}`,
-      bankName: bank.name,
-      interestRate: bank.interestRate,
-      reservationAmount: bank.reservedAmount,
-    }))
-  );
 
   const { withholding, netInterest, finalAmount } = calculateDeposit(
     amount,
@@ -49,34 +43,12 @@ function AppContent() {
       interestRate,
       reservationAmount,
     };
-    setComparisons([...comparisons, newComparison]);
+    addProduct(newComparison);
     setIsDialogOpen(false);
   };
 
   const handleDialogCancel = () => {
     setIsDialogOpen(false);
-  };
-
-  const handleRemoveComparison = (id: string) => {
-    setComparisons(comparisons.filter((item) => item.id !== id));
-  };
-
-  const handleReset = () => {
-    const initialComparisons = DEFAULT_BANKS.map((bank, index) => ({
-      id: `bank-${index}`,
-      bankName: bank.name,
-      interestRate: bank.interestRate,
-      reservationAmount: bank.reservedAmount,
-    }));
-    setComparisons(initialComparisons);
-  };
-
-  const handleUpdateComparison = (id: string, updates: Partial<ComparisonItem>) => {
-    setComparisons(
-      comparisons.map((item) =>
-        item.id === id ? { ...item, ...updates } : item
-      )
-    );
   };
 
   return (
@@ -102,12 +74,7 @@ function AppContent() {
           />
         </div>
 
-        <ComparisonList
-          items={comparisons}
-          onRemove={handleRemoveComparison}
-          onReset={handleReset}
-          onUpdate={handleUpdateComparison}
-        />
+        <ComparisonList />
       </div>
 
       <NameDialog
@@ -125,7 +92,9 @@ function App() {
     <TranslationsProvider>
       <NumberFormatProvider>
         <CalculatorProvider>
-          <AppContent />
+          <BankProductListProvider>
+            <AppContent />
+          </BankProductListProvider>
         </CalculatorProvider>
       </NumberFormatProvider>
     </TranslationsProvider>

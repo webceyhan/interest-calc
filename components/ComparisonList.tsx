@@ -3,6 +3,7 @@ import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
+import { useBankProductList } from "@/hooks/useBankProductList";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
@@ -10,17 +11,11 @@ import { ComparisonListItem } from "@/components/ComparisonListItem";
 
 export type { ComparisonItem };
 
-interface ComparisonListProps {
-  items: ComparisonItem[];
-  onRemove: (id: string) => void;
-  onReset: () => void;
-  onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
-}
-
-export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: ComparisonListProps) => {
+export const ComparisonList = () => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
   const { amount, termDays } = useCalculator();
+  const { items, removeProduct, resetProducts, updateProduct } = useBankProductList();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
@@ -72,9 +67,7 @@ export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: Compariso
   };
 
   const handleSaveEditing = (id: string) => {
-    if (onUpdate) {
-      onUpdate(id, { interestRate: editRate, reservationAmount: editReserved });
-    }
+    updateProduct(id, { interestRate: editRate, reservationAmount: editReserved });
     setEditingId(null);
   };
 
@@ -97,7 +90,7 @@ export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: Compariso
               <ShareIcon />
             </button>
             <button
-              onClick={onReset}
+              onClick={resetProducts}
               className="md:hidden p-2 text-slate-300 hover:text-blue-400 transition-all active:scale-90">
               <ResetIcon />
             </button>
@@ -110,7 +103,7 @@ export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: Compariso
               {t.share}
             </button>
             <button
-              onClick={onReset}
+              onClick={resetProducts}
               className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg transition-all duration-200 uppercase tracking-wide hover:shadow-md active:scale-95">
               <ResetIcon />
               {t.reset}
@@ -146,7 +139,7 @@ export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: Compariso
               onStartEditing={() => handleStartEditing(item)}
               onSaveEditing={() => handleSaveEditing(item.id)}
               onCancelEditing={handleCancelEditing}
-              onRemove={() => onRemove(item.id)}
+              onRemove={() => removeProduct(item.id)}
               onEditRateChange={setEditRate}
               onEditReservedChange={setEditReserved}
             />
