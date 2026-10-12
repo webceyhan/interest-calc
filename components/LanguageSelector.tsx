@@ -4,13 +4,12 @@ export const LanguageSelector = () => {
   const { language, setLanguage } = useTranslations();
 
   return (
-    <div className="text-sm">
-      <button
-        onClick={() => setLanguage(language === "tr" ? "en" : "tr")}
-        className="font-medium text-slate-400 hover:text-slate-300 transition-colors"
-      >
-        {language === "tr" ? "English" : "Türkçe"}
-      </button>
-    </div>
+    <button
+      onClick={() => setLanguage(language === "tr" ? "en" : "tr")}
+      className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 hover:text-slate-300 font-medium text-sm"
+      title={language === "tr" ? "English" : "Türkçe"}
+    >
+      {language === "tr" ? "EN" : "TR"}
+    </button>
   );
 };

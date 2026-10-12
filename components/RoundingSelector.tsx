@@ -12,11 +12,13 @@ export const RoundingSelector = () => {
       className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 hover:text-slate-300"
       title={isRounded ? t.rounded : t.precise}
     >
-      {isRounded ? (
-        <RoundingOnIcon />
-      ) : (
-        <RoundingOffIcon />
-      )}
+      <div className="w-5 h-5">
+        {isRounded ? (
+          <RoundingOnIcon />
+        ) : (
+          <RoundingOffIcon />
+        )}
+      </div>
     </button>
   );
 };
