@@ -6,7 +6,7 @@ import { InputCard } from "@/components/InputCard";
 import { ResultCard } from "@/components/ResultCard";
 import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
-import { translations } from "@/i18n";
+import { TranslationsProvider, useTranslations } from "@/contexts/TranslationsContext";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 import {
@@ -19,12 +19,12 @@ import {
   DEFAULT_IS_ROUNDED,
 } from "@/constants";
 
-function App() {
+function AppContent() {
+  const { language, setLanguage, t } = useTranslations();
   const [amount, setAmount] = useState<number>(DEFAULT_AMOUNT);
   const [termDays, setTermDays] = useState<number>(DEFAULT_TERM_DAYS);
   const [interestRate, setInterestRate] = useState<number>(DEFAULT_INTEREST_RATE);
   const [reservationAmount, setReservationAmount] = useState<number>(DEFAULT_RESERVATION_AMOUNT);
-  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const [isRounded, setIsRounded] = useState<boolean>(DEFAULT_IS_ROUNDED);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
@@ -36,7 +36,6 @@ function App() {
     }))
   );
 
-  const t = translations[language];
   const { withholding, netInterest, finalAmount } = calculateDeposit(
     amount,
     termDays,
@@ -147,6 +146,16 @@ function App() {
         t={t}
       />
     </div>
+  );
+}
+
+function App() {
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
+
+  return (
+    <TranslationsProvider language={language} setLanguage={setLanguage}>
+      <AppContent />
+    </TranslationsProvider>
   );
 }
 
