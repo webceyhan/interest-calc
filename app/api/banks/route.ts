@@ -1,20 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
+import { validateToken } from "../tokens";
 import type { BankData } from "@/types";
-
-// Import token validation (we'll use a simple check instead)
-const tokens = new Map<string, { expiresAt: number }>();
-
-function validateToken(token: string): boolean {
-  const tokenData = tokens.get(token);
-  if (!tokenData) return false;
-  if (Date.now() > tokenData.expiresAt) {
-    tokens.delete(token);
-    return false;
-  }
-  return true;
-}
 
 export async function GET() {
   try {
