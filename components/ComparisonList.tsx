@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ComparisonItem, TranslationKeys } from "@/types";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
+import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
 import { ComparisonListItem } from "@/components/ComparisonListItem";
 
@@ -17,8 +18,6 @@ interface ComparisonListProps {
   onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
   t: TranslationKeys;
 }
-
-const WITHHOLDING_RATE = 17.5;
 
 export const ComparisonList = ({ items, amount, termDays, isRounded, onRemove, onReset, onUpdate, t }: ComparisonListProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);

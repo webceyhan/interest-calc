@@ -9,16 +9,23 @@ import { NameDialog } from "@/components/NameDialog";
 import { translations } from "@/utils/translations";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
-
-const WITHHOLDING_RATE = 17.5;
+import {
+  WITHHOLDING_RATE,
+  DEFAULT_AMOUNT,
+  DEFAULT_TERM_DAYS,
+  DEFAULT_INTEREST_RATE,
+  DEFAULT_RESERVATION_AMOUNT,
+  DEFAULT_LANGUAGE,
+  DEFAULT_IS_ROUNDED,
+} from "@/constants";
 
 function App() {
-  const [amount, setAmount] = useState<number>(1000000);
-  const [termDays, setTermDays] = useState<number>(1);
-  const [interestRate, setInterestRate] = useState<number>(40);
-  const [reservationAmount, setReservationAmount] = useState<number>(0);
-  const [language, setLanguage] = useState<Language>("en");
-  const [isRounded, setIsRounded] = useState<boolean>(true);
+  const [amount, setAmount] = useState<number>(DEFAULT_AMOUNT);
+  const [termDays, setTermDays] = useState<number>(DEFAULT_TERM_DAYS);
+  const [interestRate, setInterestRate] = useState<number>(DEFAULT_INTEREST_RATE);
+  const [reservationAmount, setReservationAmount] = useState<number>(DEFAULT_RESERVATION_AMOUNT);
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
+  const [isRounded, setIsRounded] = useState<boolean>(DEFAULT_IS_ROUNDED);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
     DEFAULT_BANKS.map((bank, index) => ({

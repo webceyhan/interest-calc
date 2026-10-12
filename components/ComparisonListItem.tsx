@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import type { ComparisonItem, TranslationKeys } from "@/types";
 import { formatCurrency } from "@/utils/formatting";
 import { calculateDeposit } from "@/utils/calculations";
+import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon } from "@/components/Icons";
 
 interface ComparisonListItemProps {
@@ -24,8 +25,6 @@ interface ComparisonListItemProps {
   onEditReservedChange: (value: number) => void;
   t: TranslationKeys;
 }
-
-const WITHHOLDING_RATE = 17.5;
 
 export const ComparisonListItem = ({
   item,
