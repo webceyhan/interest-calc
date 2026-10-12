@@ -1,0 +1,107 @@
+export type Language = "tr" | "en";
+
+export type TranslationKeys = {
+  title: string;
+  subtitle: string;
+  termDays: string;
+  amount: string;
+  interestRate: string;
+  compoundInterest: string;
+  dayCount: string;
+  interestRateLabel: string;
+  withholdingRate: string;
+  withholdingAmount: string;
+  netInterest: string;
+  finalAmount: string;
+  reservationAmount: string;
+  compare: string;
+  addComparison: string;
+  comparisons: string;
+  bankName: string;
+  enterBankName: string;
+  remove: string;
+  clearAll: string;
+  rounded: string;
+  precise: string;
+  noComparisons: string;
+  addBanksToCompare: string;
+  comparisonStep1: string;
+  comparisonStep2: string;
+  comparisonStep3: string;
+  share: string;
+  copied: string;
+  loadBanks: string;
+  loading: string;
+  fetch: string;
+};
+
+export const translations: Record<Language, TranslationKeys> = {
+  tr: {
+    title: "Mevduat Faizi Hesaplama",
+    subtitle: "Mevduatınızın vade sonu tutarını anında hesaplayın",
+    termDays: "Vade Gün Sayısı",
+    amount: "Mevduat Tutarı",
+    interestRate: "Yıllık Faiz Oranı",
+    compoundInterest: "Bileşik Faiz",
+    dayCount: "Gün Sayısı",
+    interestRateLabel: "Faiz Oranı",
+    withholdingRate: "Stopaj Oranı",
+    withholdingAmount: "Stopaj Tutarı",
+    netInterest: "Net Faiz Tutarı",
+    finalAmount: "Vade Sonu Net Tutar",
+    reservationAmount: "Rezerve Tutar",
+    compare: "Karşılaştır",
+    addComparison: "Banka Ekle",
+    comparisons: "Karşılaştırma",
+    bankName: "Banka Adı",
+    enterBankName: "Banka adını giriniz",
+    remove: "Kaldır",
+    clearAll: "Temizle",
+    rounded: "Yuvarla",
+    precise: "Kesin",
+    noComparisons: "Henüz karşılaştırma yok",
+    addBanksToCompare: "Bankalarınızı karşılaştırmaya başlayın",
+    comparisonStep1: "Detayları doldurun",
+    comparisonStep2: "Karşılaştır butonuna basın",
+    comparisonStep3: "Banka adını girin ve gönder",
+    share: "Paylaş",
+    copied: "Kopyalandı!",
+    loadBanks: "Bankaları Yükle",
+    loading: "Yükleniyor...",
+    fetch: "Yükle"
+  },
+  en: {
+    title: "Deposit Interest Calculator",
+    subtitle: "Calculate your deposit's final amount instantly",
+    termDays: "Term Days",
+    amount: "Deposit Amount",
+    interestRate: "Annual Interest Rate",
+    compoundInterest: "Compound Interest",
+    dayCount: "Day Count",
+    interestRateLabel: "Interest Rate",
+    withholdingRate: "Withholding Rate",
+    withholdingAmount: "Withholding Amount",
+    netInterest: "Net Interest Amount",
+    finalAmount: "Final Amount",
+    reservationAmount: "Reserved Amount",
+    compare: "Compare",
+    addComparison: "Add Bank",
+    comparisons: "Comparison",
+    bankName: "Bank Name",
+    enterBankName: "Enter bank name",
+    remove: "Remove",
+    clearAll: "Clean",
+    rounded: "Rounded",
+    precise: "Precise",
+    noComparisons: "No comparisons yet",
+    addBanksToCompare: "Start comparing your banks",
+    comparisonStep1: "Fill in the details",
+    comparisonStep2: "Press on Compare button",
+    comparisonStep3: "Give a name and submit",
+    share: "Share",
+    copied: "Copied!",
+    loadBanks: "Load Banks",
+    loading: "Loading...",
+    fetch: "Fetch"
+  }
+};
