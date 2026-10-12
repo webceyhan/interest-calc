@@ -87,7 +87,7 @@ function App() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8 md:py-16">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <Header t={t} />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-12 mb-8 md:mb-12">
