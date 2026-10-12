@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { Button } from "@/components/Button";
@@ -10,6 +10,7 @@ export const UpdateButton = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
   const { items } = useBankProductList();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -52,7 +53,8 @@ export const UpdateButton = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Banks updated successfully!");
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 2000);
       } else {
         setError(data.error || "Failed to update banks");
       }
@@ -121,7 +123,7 @@ export const UpdateButton = () => {
 
   // Authenticated - show save button
   return (
-    <>
+    <div className="relative flex items-center gap-3">
       <Button
         variant="ghost"
         onClick={handleUpdate}
@@ -130,6 +132,12 @@ export const UpdateButton = () => {
       >
         <SaveIcon />
       </Button>
-    </>
+      
+      {showSuccess && (
+        <span className="text-green-500 font-medium text-sm animate-fade-out">
+          Updated
+        </span>
+      )}
+    </div>
   );
 };
