@@ -1,7 +1,7 @@
 import type { Language } from "@/types";
 import type { TranslationKeys } from "@/contexts/TranslationsContext";
 
-export const translations: Record<Language, TranslationKeys> = {
+export const messages: Record<Language, TranslationKeys> = {
   tr: {
     title: "Mevduat Faizi Hesaplama",
     subtitle: "Mevduatınızın vade sonu tutarını anında hesaplayın",
