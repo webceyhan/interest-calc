@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { TopNav } from "./components/TopNav";
 import { Header } from "./components/Header";
 import { InputCard } from "./components/InputCard";
 import { ResultCard } from "./components/ResultCard";
@@ -77,7 +78,15 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-950 p-6 py-8 md:py-16">
       <div className="max-w-7xl mx-auto">
-        <Header language={language} onLanguageChange={setLanguage} isRounded={isRounded} onRoundedChange={setIsRounded} t={t} />
+        <TopNav
+          language={language}
+          onLanguageChange={setLanguage}
+          isRounded={isRounded}
+          onRoundedChange={setIsRounded}
+          t={t}
+        />
+
+        <Header t={t} />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-12 mb-8 md:mb-12">
           <InputCard
