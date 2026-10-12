@@ -1,31 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { connectToDatabase } from "@/lib/mongodb";
 import { validateToken } from "../tokens";
 import type { BankData } from "@/types";
 
 const TOKEN_COOKIE_NAME = "admin_token";
-const KV_KEY = "banks_data";
 
 export async function GET() {
   try {
-    // Try to get from KV first (production)
-    let banks = await kv.get<BankData[]>(KV_KEY);
+    const { db } = await connectToDatabase();
+    const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
     
-    // If no data in KV, use default from public/banks.json
-    if (!banks) {
+    let banks = await collection.findOne({ _id: "banks_data" } as any);
+    
+    if (!banks || !banks.data) {
+      // Fallback to default in development
       if (process.env.NODE_ENV === "development") {
         const { readFile } = await import("fs/promises");
         const { join } = await import("path");
         const filePath = join(process.cwd(), "public", "banks.json");
         const data = await readFile(filePath, "utf-8");
-        banks = JSON.parse(data);
-      } else {
-        // Return empty array if no KV data in production
-        return NextResponse.json([]);
+        return NextResponse.json(JSON.parse(data));
       }
+      return NextResponse.json([]);
     }
     
-    return NextResponse.json(banks);
+    return NextResponse.json(banks.data);
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.error("Error loading banks:", error);
@@ -54,8 +53,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Store in KV
-    await kv.set(KV_KEY, banks);
+    const { db } = await connectToDatabase();
+    const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
+    
+    await collection.updateOne(
+      { _id: "banks_data" } as any,
+      { $set: { data: banks, updatedAt: new Date() } },
+      { upsert: true }
+    );
 
     return NextResponse.json({ success: true, message: "Banks updated successfully" });
   } catch (error) {
