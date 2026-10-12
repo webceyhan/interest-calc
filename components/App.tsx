@@ -8,7 +8,7 @@ import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
-import { CalculatorProvider } from "@/contexts/BankProductContext";
+import { CalculatorProvider } from "@/contexts/CalculatorContext";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { useCalculator } from "@/hooks/useCalculator";

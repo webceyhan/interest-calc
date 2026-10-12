@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CalculatorContext } from "@/contexts/BankProductContext";
+import { CalculatorContext } from "@/contexts/CalculatorContext";
 
 export const useCalculator = () => {
   const context = useContext(CalculatorContext);
