@@ -124,6 +124,12 @@ export const UpdateButton = () => {
   // Authenticated - show save button
   return (
     <div className="relative flex items-center gap-3">
+      {showSuccess && (
+        <span className="text-green-500 font-medium text-sm animate-fade-out">
+          Updated
+        </span>
+      )}
+      
       <Button
         variant="ghost"
         onClick={handleUpdate}
@@ -132,12 +138,6 @@ export const UpdateButton = () => {
       >
         <SaveIcon />
       </Button>
-      
-      {showSuccess && (
-        <span className="text-green-500 font-medium text-sm animate-fade-out">
-          Updated
-        </span>
-      )}
     </div>
   );
 };
