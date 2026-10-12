@@ -6,7 +6,7 @@ import { InputCard } from "@/components/InputCard";
 import { ResultCard } from "@/components/ResultCard";
 import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
-import { translations } from "@/utils/translations";
+import { translations } from "@/i18n";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 import {
