@@ -1,5 +1,6 @@
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
+import { useBankProduct } from "@/hooks/useBankProduct";
 import {
   CalendarIcon,
   PercentIcon,
@@ -10,8 +11,6 @@ import {
 import { ResultCardItem } from "@/components/ResultCardItem";
 
 interface ResultsCardProps {
-  termDays: number;
-  interestRate: number;
   withholding: number;
   netInterest: number;
   finalAmount: number;
@@ -19,8 +18,6 @@ interface ResultsCardProps {
 }
 
 export const ResultCard = ({
-  termDays,
-  interestRate,
   withholding,
   netInterest,
   finalAmount,
@@ -28,6 +25,7 @@ export const ResultCard = ({
 }: ResultsCardProps) => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
+  const { termDays, interestRate } = useBankProduct();
 
   return (
     <div className="lg:col-span-3 bg-linear-to-br from-slate-800 to-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 p-4 md:p-10">

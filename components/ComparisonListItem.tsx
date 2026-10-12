@@ -2,6 +2,8 @@ import { useRef, useEffect } from "react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
+import { useDeposit } from "@/hooks/useDeposit";
+import { useBankProduct } from "@/hooks/useBankProduct";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon } from "@/components/Icons";
@@ -15,8 +17,6 @@ interface ComparisonListItemProps {
   isEditing: boolean;
   editRate: number;
   editReserved: number;
-  amount: number;
-  termDays: number;
   onStartEditing: () => void;
   onSaveEditing: () => void;
   onCancelEditing: () => void;
@@ -31,8 +31,6 @@ export const ComparisonListItem = ({
   isEditing,
   editRate,
   editReserved,
-  amount,
-  termDays,
   onStartEditing,
   onSaveEditing,
   onCancelEditing,
@@ -42,6 +40,8 @@ export const ComparisonListItem = ({
 }: ComparisonListItemProps) => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
+  const { amount } = useDeposit();
+  const { termDays } = useBankProduct();
   const rateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

@@ -1,30 +1,23 @@
 import { useTranslations } from "@/hooks/useTranslations";
+import { useDeposit } from "@/hooks/useDeposit";
+import { useBankProduct } from "@/hooks/useBankProduct";
 import { InputCardItem } from "@/components/InputCardItem";
 
 interface InputCardProps {
-  amount: number;
-  termDays: number;
-  interestRate: number;
-  reservationAmount: number;
-  onAmountChange: (value: number) => void;
-  onTermDaysChange: (value: number) => void;
-  onInterestRateChange: (value: number) => void;
-  onReservationAmountChange: (value: number) => void;
   onCompare: () => void;
 }
 
-export const InputCard = ({
-  amount,
-  termDays,
-  interestRate,
-  reservationAmount,
-  onAmountChange,
-  onTermDaysChange,
-  onInterestRateChange,
-  onReservationAmountChange,
-  onCompare,
-}: InputCardProps) => {
+export const InputCard = ({ onCompare }: InputCardProps) => {
   const { t } = useTranslations();
+  const { amount, setAmount } = useDeposit();
+  const {
+    termDays,
+    interestRate,
+    reservationAmount,
+    setTermDays,
+    setInterestRate,
+    setReservationAmount,
+  } = useBankProduct();
 
   return (
     <div className="lg:col-span-2 rounded-3xl shadow-2xl overflow-hidden border border-gray-700 p-6 md:p-10">
@@ -32,21 +25,21 @@ export const InputCard = ({
         <InputCardItem
           label={t.amount}
           value={amount}
-          onChange={onAmountChange}
+          onChange={setAmount}
           placeholder={t.amount}
         />
 
         <InputCardItem
           label={t.termDays}
           value={termDays}
-          onChange={onTermDaysChange}
+          onChange={setTermDays}
           placeholder={t.termDays}
         />
 
         <InputCardItem
           label={t.interestRate}
           value={interestRate}
-          onChange={onInterestRateChange}
+          onChange={setInterestRate}
           placeholder={t.interestRate}
           step={0.1}
         />
@@ -54,7 +47,7 @@ export const InputCard = ({
         <InputCardItem
           label={t.reservationAmount}
           value={reservationAmount}
-          onChange={onReservationAmountChange}
+          onChange={setReservationAmount}
           placeholder={t.reservationAmount}
         />
 

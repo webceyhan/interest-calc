@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
+import { useDeposit } from "@/hooks/useDeposit";
+import { useBankProduct } from "@/hooks/useBankProduct";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
@@ -11,16 +13,16 @@ export type { ComparisonItem };
 
 interface ComparisonListProps {
   items: ComparisonItem[];
-  amount: number;
-  termDays: number;
   onRemove: (id: string) => void;
   onReset: () => void;
   onUpdate?: (id: string, updates: Partial<ComparisonItem>) => void;
 }
 
-export const ComparisonList = ({ items, amount, termDays, onRemove, onReset, onUpdate }: ComparisonListProps) => {
+export const ComparisonList = ({ items, onRemove, onReset, onUpdate }: ComparisonListProps) => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
+  const { amount } = useDeposit();
+  const { termDays } = useBankProduct();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
@@ -143,8 +145,6 @@ export const ComparisonList = ({ items, amount, termDays, onRemove, onReset, onU
               isEditing={editingId === item.id}
               editRate={editRate}
               editReserved={editReserved}
-              amount={amount}
-              termDays={termDays}
               onStartEditing={() => handleStartEditing(item)}
               onSaveEditing={() => handleSaveEditing(item.id)}
               onCancelEditing={handleCancelEditing}

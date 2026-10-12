@@ -8,25 +8,21 @@ import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
+import { DepositProvider } from "@/contexts/DepositContext";
+import { BankProductProvider } from "@/contexts/BankProductContext";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
+import { useDeposit } from "@/hooks/useDeposit";
+import { useBankProduct } from "@/hooks/useBankProduct";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
-import {
-  WITHHOLDING_RATE,
-  DEFAULT_AMOUNT,
-  DEFAULT_TERM_DAYS,
-  DEFAULT_INTEREST_RATE,
-  DEFAULT_RESERVATION_AMOUNT,
-} from "@/constants";
+import { WITHHOLDING_RATE } from "@/constants";
 
 function AppContent() {
   const { language, setLanguage } = useTranslations();
   useNumberFormat(); // Ensure context is available to children
-  const [amount, setAmount] = useState<number>(DEFAULT_AMOUNT);
-  const [termDays, setTermDays] = useState<number>(DEFAULT_TERM_DAYS);
-  const [interestRate, setInterestRate] = useState<number>(DEFAULT_INTEREST_RATE);
-  const [reservationAmount, setReservationAmount] = useState<number>(DEFAULT_RESERVATION_AMOUNT);
+  const { amount } = useDeposit();
+  const { termDays, interestRate, reservationAmount } = useBankProduct();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
     DEFAULT_BANKS.map((bank, index) => ({
@@ -99,21 +95,9 @@ function AppContent() {
         <Header />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-12 mb-8 md:mb-12">
-          <InputCard
-            amount={amount}
-            termDays={termDays}
-            interestRate={interestRate}
-            reservationAmount={reservationAmount}
-            onAmountChange={setAmount}
-            onTermDaysChange={setTermDays}
-            onInterestRateChange={setInterestRate}
-            onReservationAmountChange={setReservationAmount}
-            onCompare={handleCompare}
-          />
+          <InputCard onCompare={handleCompare} />
 
           <ResultCard
-            termDays={termDays}
-            interestRate={interestRate}
             withholding={withholding}
             netInterest={netInterest}
             finalAmount={finalAmount}
@@ -123,8 +107,6 @@ function AppContent() {
 
         <ComparisonList
           items={comparisons}
-          amount={amount}
-          termDays={termDays}
           onRemove={handleRemoveComparison}
           onReset={handleReset}
           onUpdate={handleUpdateComparison}
@@ -145,7 +127,11 @@ function App() {
   return (
     <TranslationsProvider>
       <NumberFormatProvider>
-        <AppContent />
+        <DepositProvider>
+          <BankProductProvider>
+            <AppContent />
+          </BankProductProvider>
+        </DepositProvider>
       </NumberFormatProvider>
     </TranslationsProvider>
   );
