@@ -13,10 +13,6 @@ export const UpdateButton = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { items } = useBankProductList();
 
-  useEffect(() => {
-    console.log("UpdateButton - isAuthenticated:", isAuthenticated);
-  }, [isAuthenticated]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

@@ -29,9 +29,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
 
       const data = await response.json();
-      console.log("Auth status:", data, "Response OK:", response.ok);
 
-      // Check the authenticated field in response, not just HTTP status
+      // Check the authenticated field in response
       if (data.authenticated) {
         setIsAuthenticated(true);
       } else {
@@ -39,7 +38,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     } catch (error) {
       // Handle both network errors and 404s gracefully
-      console.error("Auth check error:", error);
       setIsAuthenticated(false);
     }
   };
