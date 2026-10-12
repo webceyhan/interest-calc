@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 import type { BankData } from "@/types";
 
 export async function GET() {
   try {
-    const response = await fetch(new URL("/banks.json", process.env.NEXTAUTH_URL || "http://localhost:3000"));
-    const banks: BankData[] = await response.json();
+    const filePath = join(process.cwd(), "public", "banks.json");
+    const data = await readFile(filePath, "utf-8");
+    const banks: BankData[] = JSON.parse(data);
     return NextResponse.json(banks);
-  } catch {
+  } catch (error) {
+    console.error("Error loading banks:", error);
     return NextResponse.json({ error: "Failed to load banks" }, { status: 500 });
   }
 }
