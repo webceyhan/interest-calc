@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,6 +15,14 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    // Restore auth state from localStorage on mount
+    const stored = localStorage.getItem("admin_authenticated");
+    if (stored === "true") {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const login = async (password: string): Promise<boolean> => {
     try {
       const response = await fetch("/api/auth", {
@@ -25,6 +33,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       if (response.ok) {
         setIsAuthenticated(true);
+        localStorage.setItem("admin_authenticated", "true");
         return true;
       }
       return false;
@@ -35,6 +44,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem("admin_authenticated");
   };
 
   return (
