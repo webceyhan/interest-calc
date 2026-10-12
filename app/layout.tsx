@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Mevduat Faizi Hesaplama",
   description: "Mevduatınızın vade sonu tutarını anında hesaplayın",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
