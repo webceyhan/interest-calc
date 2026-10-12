@@ -6,12 +6,10 @@ const TOKEN_COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY_MS = 3600000; // 1 hour
 
 export async function POST(request: NextRequest) {
-  console.log("[AUTH_POST] Route called");
   try {
     const adminPassword = process.env.ADMIN_PASSWORD;
     
     if (!adminPassword) {
-      console.log("ADMIN_PASSWORD environment variable is not configured");
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
     }
 
@@ -43,7 +41,7 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
-      console.log("Authentication error:", error);
+      console.error("Authentication error:", error);
     }
     return NextResponse.json({ error: "Failed to authenticate" }, { status: 500 });
   }
@@ -78,28 +76,22 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  console.log("[AUTH_GET] Route called");
   try {
     const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!token) {
-      console.log("[AUTH_GET] No token in cookie");
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
-    console.log("[AUTH_GET] Found token, validating...");
     // Validate token
     if (!await validateToken(token)) {
-      console.log("[AUTH_GET] Token validation failed");
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
 
-    console.log("[AUTH_GET] Token valid");
     return NextResponse.json({ authenticated: true }, { status: 200 });
   } catch (error) {
-    console.log("[AUTH_GET] Caught error:", error);
     if (process.env.NODE_ENV === "development") {
-      console.log("Status check error:", error);
+      console.error("Status check error:", error);
     }
     return NextResponse.json({ authenticated: false }, { status: 200 });
   }
