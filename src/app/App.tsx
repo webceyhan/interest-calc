@@ -63,7 +63,7 @@ function App() {
     setComparisons(comparisons.filter((item) => item.id !== id));
   };
 
-  const handleClearAll = () => {
+  const handleReset = () => {
     const initialComparisons = DEFAULT_BANKS.map((bank, index) => ({
       id: `bank-${index}`,
       bankName: bank.name,
@@ -128,7 +128,7 @@ function App() {
           termDays={termDays}
           isRounded={isRounded}
           onRemove={handleRemoveComparison}
-          onClearAll={handleClearAll}
+          onClearAll={handleReset}
           onUpdate={handleUpdateComparison}
           t={t}
         />
