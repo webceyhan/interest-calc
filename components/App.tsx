@@ -8,12 +8,10 @@ import { ComparisonList } from "@/components/ComparisonList";
 import { NameDialog } from "@/components/NameDialog";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
-import { DepositProvider } from "@/contexts/DepositContext";
-import { BankProductProvider } from "@/contexts/BankProductContext";
+import { CalculatorProvider } from "@/contexts/BankProductContext";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
-import { useDeposit } from "@/hooks/useDeposit";
-import { useBankProduct } from "@/hooks/useBankProduct";
+import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { DEFAULT_BANKS } from "@/utils/banks";
 import { WITHHOLDING_RATE } from "@/constants";
@@ -21,8 +19,7 @@ import { WITHHOLDING_RATE } from "@/constants";
 function AppContent() {
   const { language, setLanguage } = useTranslations();
   useNumberFormat(); // Ensure context is available to children
-  const { amount } = useDeposit();
-  const { termDays, interestRate, reservationAmount } = useBankProduct();
+  const { amount, termDays, interestRate, reservationAmount } = useCalculator();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [comparisons, setComparisons] = useState<ComparisonItem[]>(() =>
     DEFAULT_BANKS.map((bank, index) => ({
@@ -127,11 +124,9 @@ function App() {
   return (
     <TranslationsProvider>
       <NumberFormatProvider>
-        <DepositProvider>
-          <BankProductProvider>
-            <AppContent />
-          </BankProductProvider>
-        </DepositProvider>
+        <CalculatorProvider>
+          <AppContent />
+        </CalculatorProvider>
       </NumberFormatProvider>
     </TranslationsProvider>
   );

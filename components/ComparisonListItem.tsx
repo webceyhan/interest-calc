@@ -2,8 +2,7 @@ import { useRef, useEffect } from "react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
-import { useDeposit } from "@/hooks/useDeposit";
-import { useBankProduct } from "@/hooks/useBankProduct";
+import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon } from "@/components/Icons";
@@ -40,8 +39,7 @@ export const ComparisonListItem = ({
 }: ComparisonListItemProps) => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
-  const { amount } = useDeposit();
-  const { termDays } = useBankProduct();
+  const { amount, termDays } = useCalculator();
   const rateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

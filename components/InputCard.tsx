@@ -1,6 +1,5 @@
 import { useTranslations } from "@/hooks/useTranslations";
-import { useDeposit } from "@/hooks/useDeposit";
-import { useBankProduct } from "@/hooks/useBankProduct";
+import { useCalculator } from "@/hooks/useCalculator";
 import { InputCardItem } from "@/components/InputCardItem";
 
 interface InputCardProps {
@@ -9,15 +8,7 @@ interface InputCardProps {
 
 export const InputCard = ({ onCompare }: InputCardProps) => {
   const { t } = useTranslations();
-  const { amount, setAmount } = useDeposit();
-  const {
-    termDays,
-    interestRate,
-    reservationAmount,
-    setTermDays,
-    setInterestRate,
-    setReservationAmount,
-  } = useBankProduct();
+  const { amount, termDays, interestRate, reservationAmount, setAmount, setTermDays, setInterestRate, setReservationAmount } = useCalculator();
 
   return (
     <div className="lg:col-span-2 rounded-3xl shadow-2xl overflow-hidden border border-gray-700 p-6 md:p-10">
