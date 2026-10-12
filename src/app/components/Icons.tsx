@@ -1,3 +1,4 @@
+// Result Card Icons
 export const CalendarIcon = () => (
   <svg viewBox="0 0 64 65" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
     <path fillRule="evenodd" clipRule="evenodd" d="M27.6 8.8981C27.6 8.56673 27.3314 8.2981 27 8.2981C26.6687 8.2981 26.4 8.56672 26.4 8.89809L26.4 13.2981H17.5999L17.6 8.8981C17.6 8.56673 17.3313 8.2981 17 8.2981C16.6686 8.2981 16.4 8.56672 16.4 8.89809L16.3999 13.2981H13C10.4595 13.2981 8.40002 15.3576 8.40002 17.8981V51.8981C8.40002 54.4386 10.4595 56.4981 13 56.4981H51C53.5405 56.4981 55.6 54.4386 55.6 51.8981V17.8981C55.6 15.3576 53.5405 13.2981 51 13.2981H47.6L47.6 8.8981C47.6 8.56673 47.3314 8.2981 47 8.2981C46.6687 8.2981 46.4 8.56672 46.4 8.89809L46.4 13.2981H37.6L37.6 8.8981C37.6 8.56673 37.3314 8.2981 37 8.2981C36.6686 8.2981 36.4 8.56672 36.4 8.89809L36.4 13.2981H27.6L27.6 8.8981ZM26.4 14.4981L26.4 18.3981C26.4 18.7295 26.6686 18.9981 27 18.9981C27.3314 18.9981 27.6 18.7295 27.6 18.3981L27.6 14.4981H36.4L36.3999 18.3981C36.3999 18.7295 36.6686 18.9981 36.9999 18.9981C37.3313 18.9981 37.5999 18.7295 37.5999 18.3981L37.6 14.4981H46.4L46.4 18.3981C46.4 18.7295 46.6686 18.9981 47 18.9981C47.3314 18.9981 47.6 18.7295 47.6 18.3981L47.6 14.4981H51C52.8778 14.4981 54.4 16.0203 54.4 17.8981V51.8981C54.4 53.7759 52.8778 55.2981 51 55.2981H13C11.1223 55.2981 9.60002 53.7759 9.60002 51.8981V17.8981C9.60002 16.0203 11.1223 14.4981 13 14.4981H16.3999L16.3999 18.3981C16.3999 18.7295 16.6685 18.9981 16.9999 18.9981C17.3313 18.9981 17.5999 18.7295 17.5999 18.3981L17.5999 14.4981H26.4Z" fill="currentColor"/>
@@ -59,4 +60,17 @@ export const FinalEarningsIcon = () => (
     <path d="M48 25C48 27.761 43.0751 30 37 30C30.9249 30 26 27.761 26 25C26 22.239 30.9249 20 37 20C43.0751 20 48 22.239 48 25Z" fill="#FDB913" stroke="black" strokeWidth="1.2" strokeMiterlimit="10"/>
     <path d="M26 25L26 53C26 54.761 30.9249 56 37 56C43.0751 56 48 54.761 48 53V25" stroke="black" strokeWidth="1.2" strokeMiterlimit="10"/>
   </svg>
+);
+
+// Comparison List Icons
+export const ShareIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+);
+
+export const ResetIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+);
+
+export const PenIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
 );

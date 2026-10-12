@@ -6,7 +6,7 @@ import {
   InterestRateIcon,
   DepositMoneyIcon,
   FinalEarningsIcon,
-} from "./ResultIcons";
+} from "./Icons";
 
 interface ResultsCardProps {
   termDays: number;
