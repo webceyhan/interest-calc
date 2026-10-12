@@ -5,9 +5,11 @@ import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { calculateDeposit } from "@/utils/calculations";
+import { shareComparison } from "@/utils/shareComparison";
 import { WITHHOLDING_RATE } from "@/constants";
 import { ShareIcon, ResetIcon } from "@/components/Icons";
 import { ComparisonListItem } from "@/components/ComparisonListItem";
+import { ComparisonListPlaceholder } from "@/components/ComparisonListPlaceholder";
 import { Button } from "@/components/Button";
 
 export type { ComparisonItem };
@@ -39,26 +41,14 @@ export const ComparisonList = () => {
   const sortedItems = [...itemsWithResults].sort((a, b) => b.netInterest - a.netInterest);
   const bestDealId = sortedItems.length > 1 ? sortedItems[0]?.id : null;
 
-  const handleShare = async () => {
-    const maxBankLength = Math.max(...sortedItems.map(item => item.bankName.length));
-    
-    const shareText = `Bank Comparison\nAmount: ₺${amount.toLocaleString()}\nDays: ${termDays}\n\n${sortedItems
-      .map((item, i) => {
-        const bankName = item.bankName.padEnd(maxBankLength);
-        const rate = `%${item.interestRate.toFixed(1)}`.padStart(5);
-        const net = formatCurrency(item.netInterest).padStart(10);
-        const final = formatCurrency(item.finalAmount).padStart(10);
-        const star = i === 0 ? "  ⭐" : "";
-        return `${bankName}  ${rate}  Net: ${net}  Final: ${final}${star}`;
-      })
-      .join("\n")}`;
-    
-    try {
-      await navigator.clipboard.writeText(shareText);
-      alert(t.copied);
-    } catch {
-      alert("Failed to copy");
-    }
+  const handleShare = () => {
+    shareComparison({
+      items: sortedItems,
+      amount,
+      termDays,
+      formatCurrency,
+      copiedMessage: t.copied,
+    });
   };
 
   const handleStartEditing = (item: ComparisonItem) => {
@@ -116,19 +106,7 @@ export const ComparisonList = () => {
       </div>
       
       {items.length === 0 ? (
-        <div className="rounded-2xl p-12 border border-dashed border-gray-600 bg-slate-950/50 flex flex-col items-center justify-center min-h-64">
-          <div className="text-center max-w-md">
-            <p className="text-lg text-slate-400 font-medium mb-4">
-              {t.noComparisons}
-            </p>
-            <p className="text-sm text-slate-500 mb-4">
-              {t.addBanksToCompare}
-            </p>
-            <p className="text-xs text-slate-500 bg-slate-900/50 rounded-lg p-4">
-              {t.comparisonStep1} → {t.comparisonStep2} → {t.comparisonStep3}
-            </p>
-          </div>
-        </div>
+        <ComparisonListPlaceholder />
       ) : (
         <div className="space-y-4">
           {sortedItems.map((item) => (
