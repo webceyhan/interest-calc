@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { messages } from "@/i18n";
 import "./globals.css";
 
 const geist = Geist({
@@ -12,9 +13,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const enMessages = messages.en;
+
 export const metadata: Metadata = {
-  title: "Mevduat Faizi Hesaplama",
-  description: "Mevduatınızın vade sonu tutarını anında hesaplayın",
+  title: enMessages.title,
+  description: enMessages.subtitle,
   icons: {
     icon: "/favicon.svg",
   },
