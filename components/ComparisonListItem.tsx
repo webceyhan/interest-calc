@@ -15,12 +15,14 @@ interface ComparisonListItemProps {
   };
   isBestDeal: boolean;
   isEditing: boolean;
+  editBankName: string;
   editRate: number;
   editReserved: number;
   onStartEditing: () => void;
   onSaveEditing: () => void;
   onCancelEditing: () => void;
   onRemove: () => void;
+  onEditBankNameChange: (value: string) => void;
   onEditRateChange: (value: number) => void;
   onEditReservedChange: (value: number) => void;
 }
@@ -29,23 +31,29 @@ export const ComparisonListItem = ({
   item,
   isBestDeal,
   isEditing,
+  editBankName,
   editRate,
   editReserved,
   onStartEditing,
   onSaveEditing,
   onCancelEditing,
   onRemove,
+  onEditBankNameChange,
   onEditRateChange,
   onEditReservedChange,
 }: ComparisonListItemProps) => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
   const { amount, termDays } = useCalculator();
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const rateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isEditing && rateInputRef.current) {
-      rateInputRef.current.focus();
+    if (!isEditing) return;
+    if (editBankName === "") {
+      nameInputRef.current?.focus();
+    } else {
+      rateInputRef.current?.focus();
     }
   }, [isEditing]);
 
@@ -58,26 +66,35 @@ export const ComparisonListItem = ({
       }`}>
       <div className="flex justify-between items-start gap-4 mb-4">
         <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-bold text-blue-300">
-              {item.bankName}
-            </h3>
-            {isBestDeal && (
-              <span className="text-xs font-bold text-green-400 bg-green-500/20 px-2 py-1 rounded">
-                ★ BEST
-              </span>
-            )}
-          </div>
+          {isEditing ? (
+            <input
+              ref={nameInputRef}
+              type="text"
+              value={editBankName}
+              onChange={(e) => onEditBankNameChange(e.target.value)}
+              placeholder="Bank name"
+              className="w-full md:w-1/2 px-0 py-1 bg-transparent text-blue-300 text-lg font-bold border-0 border-b-2 border-b-slate-600 focus:outline-none focus:ring-0 focus:border-b-blue-500 transition-colors placeholder:text-slate-600"
+            />
+          ) : (
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-bold text-blue-300">
+                {item.bankName}
+              </h3>
+              {isBestDeal && (
+                <span className="text-xs font-bold text-green-400 bg-green-500/20 px-2 py-1 rounded">
+                  ★ BEST
+                </span>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="ghost"
-            onClick={onStartEditing}>
-            <PencilIcon className="size-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={onRemove}>
+          {!isEditing && (
+            <Button variant="ghost" onClick={onStartEditing}>
+              <PencilIcon className="size-4" />
+            </Button>
+          )}
+          <Button variant="ghost" onClick={onRemove}>
             <XIcon className="size-4" />
           </Button>
         </div>

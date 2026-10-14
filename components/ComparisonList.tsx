@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Share2Icon, RotateCcwIcon } from "lucide-react";
+import { Share2Icon, RotateCcwIcon, PlusIcon } from "lucide-react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
@@ -17,9 +17,10 @@ export type { ComparisonItem };
 export const ComparisonList = () => {
   const { t } = useTranslations();
   const formatCurrency = useFormatCurrency();
-  const { amount, termDays } = useCalculator();
-  const { items, removeProduct, resetProducts, updateProduct } = useBankProductList();
+  const { amount, termDays, interestRate, reservationAmount } = useCalculator();
+  const { items, addProduct, removeProduct, resetProducts, updateProduct } = useBankProductList();
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [editBankName, setEditBankName] = useState<string>("");
   const [editRate, setEditRate] = useState<number>(0);
   const [editReserved, setEditReserved] = useState<number>(0);
 
@@ -53,17 +54,33 @@ export const ComparisonList = () => {
 
   const handleStartEditing = (item: ComparisonItem) => {
     setEditingId(item.id);
+    setEditBankName(item.bankName);
     setEditRate(item.interestRate);
     setEditReserved(item.reservationAmount);
   };
 
   const handleSaveEditing = (id: string) => {
-    updateProduct(id, { interestRate: editRate, reservationAmount: editReserved });
+    updateProduct(id, { bankName: editBankName, interestRate: editRate, reservationAmount: editReserved });
     setEditingId(null);
   };
 
   const handleCancelEditing = () => {
+    if (editingId) {
+      const item = items.find((i) => i.id === editingId);
+      if (item?.bankName === "") removeProduct(editingId);
+    }
     setEditingId(null);
+  };
+
+  const handleAdd = () => {
+    const newItem: ComparisonItem = {
+      id: Date.now().toString(),
+      bankName: "",
+      interestRate,
+      reservationAmount,
+    };
+    addProduct(newItem);
+    handleStartEditing(newItem);
   };
 
   return (
@@ -74,31 +91,26 @@ export const ComparisonList = () => {
         </h2>
         <div className="flex gap-2">
           {/* Mobile: Icons only */}
-          <Button
-            variant="ghost"
-            onClick={handleShare}
-            className="md:hidden">
+          <Button variant="ghost" onClick={handleAdd} className="md:hidden">
+            <PlusIcon className="size-5" />
+          </Button>
+          <Button variant="ghost" onClick={handleShare} className="md:hidden">
             <Share2Icon className="size-5" />
           </Button>
-          <Button
-            variant="ghost"
-            onClick={resetProducts}
-            className="md:hidden">
+          <Button variant="ghost" onClick={resetProducts} className="md:hidden">
             <RotateCcwIcon className="size-4" />
           </Button>
-          
+
           {/* Desktop: Full buttons */}
-          <Button
-            variant="outline"
-            onClick={handleShare}
-            className="hidden md:flex items-center gap-2">
+          <Button variant="outline" onClick={handleAdd} className="hidden md:flex items-center gap-2">
+            <PlusIcon className="size-4" />
+            {t.add}
+          </Button>
+          <Button variant="outline" onClick={handleShare} className="hidden md:flex items-center gap-2">
             <Share2Icon className="size-5" />
             {t.share}
           </Button>
-          <Button
-            variant="outline"
-            onClick={resetProducts}
-            className="hidden md:flex items-center gap-2">
+          <Button variant="outline" onClick={resetProducts} className="hidden md:flex items-center gap-2">
             <RotateCcwIcon className="size-4" />
             {t.reset}
           </Button>
@@ -115,12 +127,14 @@ export const ComparisonList = () => {
               item={item}
               isBestDeal={item.id === bestDealId}
               isEditing={editingId === item.id}
+              editBankName={editBankName}
               editRate={editRate}
               editReserved={editReserved}
               onStartEditing={() => handleStartEditing(item)}
               onSaveEditing={() => handleSaveEditing(item.id)}
               onCancelEditing={handleCancelEditing}
               onRemove={() => removeProduct(item.id)}
+              onEditBankNameChange={setEditBankName}
               onEditRateChange={setEditRate}
               onEditReservedChange={setEditReserved}
             />

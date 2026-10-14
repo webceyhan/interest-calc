@@ -21,8 +21,8 @@ export const ResultCard = () => {
 
   return (
     <div className="lg:col-span-3 bg-linear-to-br from-slate-800 to-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 p-4 md:p-10">
-      <div className="space-y-4 md:space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ResultCardItem
             icon={<CalendarDaysIcon />}
             label={t.dayCount}
@@ -35,7 +35,7 @@ export const ResultCard = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ResultCardItem
             icon={<PieChartIcon />}
             label={t.withholdingRate}

@@ -17,7 +17,7 @@ export const ResultCardItem = ({
 }: ResultCardItemProps) => {
   return (
     <div
-      className={`rounded-2xl p-3 md:p-6 bg-slate-700/40 border border-slate-600/50 transition-all ${
+      className={`rounded-2xl p-3 md:p-4 bg-slate-700/40 border border-slate-600/50 transition-all ${
         animated ? "animate-fade-in" : ""
       }`}>
       <div className="flex items-start gap-4">
