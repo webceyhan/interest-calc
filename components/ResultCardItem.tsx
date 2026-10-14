@@ -1,4 +1,5 @@
 import React from "react";
+import { toUpperCase } from "@/i18n";
 
 interface ResultCardItemProps {
   icon: React.ReactNode;
@@ -27,8 +28,8 @@ export const ResultCardItem = ({
           </div>
         </div>
         <div className={large ? "flex-1" : "flex-1 min-w-0"}>
-          <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
-            {label}
+          <p className="text-xs font-bold text-slate-300 tracking-wide mb-1">
+            {toUpperCase(label)}
           </p>
           <p 
             className={`font-bold text-white ${

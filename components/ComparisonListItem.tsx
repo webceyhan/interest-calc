@@ -7,6 +7,7 @@ import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { PenIcon, CloseIcon } from "@/components/Icons";
 import { Button } from "@/components/Button";
+import { toUpperCase } from "@/i18n";
 
 interface ComparisonListItemProps {
   item: ComparisonItem & {
@@ -87,8 +88,8 @@ export const ComparisonListItem = ({
         <div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 gap-y-4 md:gap-y-6 mb-4">
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-                {t.interestRateLabel}
+              <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+                {toUpperCase(t.interestRateLabel)}
               </p>
               <input
                 ref={rateInputRef}
@@ -100,8 +101,8 @@ export const ComparisonListItem = ({
               />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-                {t.reservationAmount}
+              <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+                {toUpperCase(t.reservationAmount)}
               </p>
               <input
                 type="number"
@@ -111,16 +112,16 @@ export const ComparisonListItem = ({
               />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-                {t.netInterest}
+              <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+                {toUpperCase(t.netInterest)}
               </p>
               <p className="text-lg md:text-xl font-black text-white">
                 {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).netInterest)}
               </p>
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-                {t.finalAmount}
+              <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+                {toUpperCase(t.finalAmount)}
               </p>
               <p className="text-lg md:text-xl font-black text-white">
                 {formatCurrency(calculateDeposit(amount, termDays, editRate, WITHHOLDING_RATE, editReserved).finalAmount)}
@@ -145,8 +146,8 @@ export const ComparisonListItem = ({
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 gap-y-4 md:gap-y-6">
           <div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-              {t.interestRateLabel}
+            <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+              {toUpperCase(t.interestRateLabel)}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
               %{item.interestRate.toFixed(1)}
@@ -154,8 +155,8 @@ export const ComparisonListItem = ({
           </div>
 
           <div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-              {t.reservationAmount}
+            <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+              {toUpperCase(t.reservationAmount)}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
               {formatCurrency(item.reservationAmount)}
@@ -163,8 +164,8 @@ export const ComparisonListItem = ({
           </div>
 
           <div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-              {t.netInterest}
+            <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+              {toUpperCase(t.netInterest)}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
               {formatCurrency(item.netInterest)}
@@ -172,8 +173,8 @@ export const ComparisonListItem = ({
           </div>
 
           <div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
-              {t.finalAmount}
+            <p className="text-xs font-bold text-slate-400 tracking-wide mb-1">
+              {toUpperCase(t.finalAmount)}
             </p>
             <p className="text-lg md:text-xl font-black text-white">
               {formatCurrency(item.finalAmount)}
