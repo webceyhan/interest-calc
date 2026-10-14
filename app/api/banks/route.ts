@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
-import { validateToken } from "../tokens";
+import { auth } from "@/auth";
 import type { BankData } from "@/types";
-
-const TOKEN_COOKIE_NAME = "admin_token";
 
 const DUMMY_BANKS: BankData[] = [
   { name: "ING", interestRate: 44.0, reservedAmount: 285000 },
@@ -17,7 +15,7 @@ export async function GET() {
     const db = await getDatabase();
     const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
     
-    let banks = await collection.findOne({ _id: "banks_data" } as any);
+    const banks = await collection.findOne({ _id: "banks_data" } as { _id: string });
     
     if (!banks || !banks.data) {
       return NextResponse.json(DUMMY_BANKS);
@@ -34,9 +32,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
+    const session = await auth();
 
-    if (!token || !await validateToken(token)) {
+    if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -56,7 +54,7 @@ export async function POST(request: NextRequest) {
     const collection = db.collection<{ _id: string; data: BankData[]; updatedAt?: Date }>("banks");
     
     await collection.updateOne(
-      { _id: "banks_data" } as any,
+      { _id: "banks_data" } as { _id: string },
       { $set: { data: banks, updatedAt: new Date() } },
       { upsert: true }
     );
