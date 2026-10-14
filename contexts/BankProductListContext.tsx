@@ -25,6 +25,33 @@ const transformBanksToItems = (banks: BankData[]): ComparisonItem[] =>
     reservationAmount: bank.reservedAmount,
   }));
 
+const DUMMY_BANKS: ComparisonItem[] = [
+  {
+    id: "dummy-1",
+    bankName: "ING Türkiye",
+    interestRate: 24.5,
+    reservationAmount: 5000,
+  },
+  {
+    id: "dummy-2",
+    bankName: "TEB",
+    interestRate: 23.75,
+    reservationAmount: 10000,
+  },
+  {
+    id: "dummy-3",
+    bankName: "Yapı Kredi",
+    interestRate: 24.0,
+    reservationAmount: 0,
+  },
+  {
+    id: "dummy-4",
+    bankName: "Vakıfbank",
+    interestRate: 23.5,
+    reservationAmount: 2500,
+  },
+];
+
 export const BankProductListProvider = ({ children }: BankProductListProviderProps) => {
   const [items, setItems] = useState<ComparisonItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,11 +60,14 @@ export const BankProductListProvider = ({ children }: BankProductListProviderPro
     const fetchBanks = async () => {
       try {
         const response = await fetch("/api/banks");
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
         const banks: BankData[] = await response.json();
         setItems(transformBanksToItems(banks));
       } catch (error) {
-        console.error("Failed to load banks:", error);
-        setItems([]);
+        console.warn("Failed to load banks from API, using dummy data:", error);
+        setItems(DUMMY_BANKS);
       } finally {
         setIsLoading(false);
       }
@@ -65,10 +95,14 @@ export const BankProductListProvider = ({ children }: BankProductListProviderPro
   const resetProducts = async () => {
     try {
       const response = await fetch("/api/banks");
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
       const banks: BankData[] = await response.json();
       setItems(transformBanksToItems(banks));
     } catch (error) {
-      console.error("Failed to reset banks:", error);
+      console.warn("Failed to reset banks from API, using dummy data:", error);
+      setItems(DUMMY_BANKS);
     }
   };
 
