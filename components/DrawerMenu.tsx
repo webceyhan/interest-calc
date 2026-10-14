@@ -124,7 +124,7 @@ export const DrawerMenu = () => {
                                 <DecimalsArrowLeftIcon className="size-5" />
                             )
                         }
-                        label={isRounded ? t.rounded : t.precise}
+                        label="Rounding"
                         badge={isRounded ? "ON" : "OFF"}
                         onClick={() => setIsRounded(!isRounded)}
                     />
