@@ -5,7 +5,7 @@ import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
-import { PenIcon } from "@/components/Icons";
+import { PenIcon, CloseIcon } from "@/components/Icons";
 import { Button } from "@/components/Button";
 
 interface ComparisonListItemProps {
@@ -78,7 +78,7 @@ export const ComparisonListItem = ({
           <Button
             variant="ghost"
             onClick={onRemove}>
-            ✕
+            <CloseIcon />
           </Button>
         </div>
       </div>
