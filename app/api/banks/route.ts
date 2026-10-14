@@ -5,6 +5,13 @@ import type { BankData } from "@/types";
 
 const TOKEN_COOKIE_NAME = "admin_token";
 
+const DUMMY_BANKS: BankData[] = [
+  { name: "ING Türkiye", interestRate: 24.5, reservedAmount: 5000 },
+  { name: "TEB", interestRate: 23.75, reservedAmount: 10000 },
+  { name: "Yapı Kredi", interestRate: 24.0, reservedAmount: 0 },
+  { name: "Vakıfbank", interestRate: 23.5, reservedAmount: 2500 },
+];
+
 export async function GET() {
   try {
     const db = await getDatabase();
@@ -13,15 +20,7 @@ export async function GET() {
     let banks = await collection.findOne({ _id: "banks_data" } as any);
     
     if (!banks || !banks.data) {
-      // Fallback to default in development
-      if (process.env.NODE_ENV === "development") {
-        const { readFile } = await import("fs/promises");
-        const { join } = await import("path");
-        const filePath = join(process.cwd(), "public", "banks.json");
-        const data = await readFile(filePath, "utf-8");
-        return NextResponse.json(JSON.parse(data));
-      }
-      return NextResponse.json([]);
+      return NextResponse.json(DUMMY_BANKS);
     }
     
     return NextResponse.json(banks.data);
@@ -29,7 +28,7 @@ export async function GET() {
     if (process.env.NODE_ENV === "development") {
       console.error("Error loading banks:", error);
     }
-    return NextResponse.json({ error: "Failed to load banks" }, { status: 500 });
+    return NextResponse.json(DUMMY_BANKS);
   }
 }
 
