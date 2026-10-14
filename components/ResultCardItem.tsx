@@ -1,5 +1,4 @@
 import React from "react";
-import { toUpperCase } from "@/i18n";
 
 interface ResultCardItemProps {
   icon: React.ReactNode;
@@ -23,13 +22,13 @@ export const ResultCardItem = ({
       }`}>
       <div className="flex items-start gap-4">
         <div className={`flex items-center justify-center w-12 md:w-14 h-12 md:h-14 bg-slate-500 rounded-full shrink-0 border border-slate-500/50 text-slate-900 ${large ? "md:w-16 md:h-16" : ""}`}>
-          <div className={`${large ? "w-8 md:w-10 h-8 md:h-10" : "w-8 md:w-10 h-8 md:h-10"}`}>
+          <div className={`${large ? "size-8 md:size-10" : "size-8"} *:size-full *:text-indigo-200`}>
             {icon}
           </div>
         </div>
         <div className={large ? "flex-1" : "flex-1 min-w-0"}>
-          <p className="text-xs font-bold text-slate-300 tracking-wide mb-1">
-            {toUpperCase(label)}
+          <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
+            {label}
           </p>
           <p 
             className={`font-bold text-white ${

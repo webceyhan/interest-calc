@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Share2Icon, RotateCcwIcon } from "lucide-react";
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
@@ -7,7 +8,6 @@ import { useBankProductList } from "@/hooks/useBankProductList";
 import { calculateDeposit } from "@/utils/calculations";
 import { shareComparison } from "@/utils/shareComparison";
 import { WITHHOLDING_RATE } from "@/constants";
-import { ShareIcon, ResetIcon } from "@/components/Icons";
 import { ComparisonListItem } from "@/components/ComparisonListItem";
 import { ComparisonListPlaceholder } from "@/components/ComparisonListPlaceholder";
 import { Button } from "@/components/Button";
@@ -78,13 +78,13 @@ export const ComparisonList = () => {
             variant="ghost"
             onClick={handleShare}
             className="md:hidden">
-            <ShareIcon />
+            <Share2Icon className="size-5" />
           </Button>
           <Button
             variant="ghost"
             onClick={resetProducts}
             className="md:hidden">
-            <ResetIcon />
+            <RotateCcwIcon className="size-4" />
           </Button>
           
           {/* Desktop: Full buttons */}
@@ -92,14 +92,14 @@ export const ComparisonList = () => {
             variant="outline"
             onClick={handleShare}
             className="hidden md:flex items-center gap-2">
-            <ShareIcon />
+            <Share2Icon className="size-5" />
             {t.share}
           </Button>
           <Button
             variant="outline"
             onClick={resetProducts}
             className="hidden md:flex items-center gap-2">
-            <ResetIcon />
+            <RotateCcwIcon className="size-4" />
             {t.reset}
           </Button>
         </div>

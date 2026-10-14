@@ -1,6 +1,6 @@
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
-import { RoundingOffIcon, RoundingOnIcon } from "@/components/Icons";
+import { DecimalsArrowLeftIcon, DecimalsArrowRightIcon } from "lucide-react";
 import { Button } from "@/components/Button";
 
 export const RoundingSelector = () => {
@@ -15,9 +15,9 @@ export const RoundingSelector = () => {
     >
       <div className="w-5 h-5">
         {isRounded ? (
-          <RoundingOnIcon />
+          <DecimalsArrowRightIcon />
         ) : (
-          <RoundingOffIcon />
+          <DecimalsArrowLeftIcon />
         )}
       </div>
     </Button>

@@ -1,13 +1,5 @@
 import type { Language } from "@/types";
 
-// Helper function to uppercase strings correctly for Turkish
-const toUpperCase = (str: string): string => {
-  return str
-    .replace(/i/g, "İ")
-    .replace(/ı/g, "I")
-    .toUpperCase();
-};
-
 export const messages: Record<Language, Record<string, string>> = {
   en: {
     title: "Deposit Interest Calculator",
@@ -76,5 +68,3 @@ export const messages: Record<Language, Record<string, string>> = {
     cancel: "İptal",
   },
 };
-
-export { toUpperCase };

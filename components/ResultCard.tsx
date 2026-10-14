@@ -3,13 +3,7 @@ import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
-import {
-  CalendarIcon,
-  PercentIcon,
-  InterestRateIcon,
-  DepositMoneyIcon,
-  FinalEarningsIcon,
-} from "@/components/Icons";
+import { CalendarDaysIcon, PieChartIcon, PercentIcon, BanknoteIcon } from "lucide-react";
 import { ResultCardItem } from "@/components/ResultCardItem";
 
 export const ResultCard = () => {
@@ -30,7 +24,7 @@ export const ResultCard = () => {
       <div className="space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <ResultCardItem
-            icon={<CalendarIcon />}
+            icon={<CalendarDaysIcon />}
             label={t.dayCount}
             value={String(termDays)}
           />
@@ -43,12 +37,12 @@ export const ResultCard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <ResultCardItem
-            icon={<InterestRateIcon />}
+            icon={<PieChartIcon />}
             label={t.withholdingRate}
             value={`%${WITHHOLDING_RATE}`}
           />
           <ResultCardItem
-            icon={<DepositMoneyIcon />}
+            icon={<BanknoteIcon />}
             label={t.withholdingAmount}
             value={formatCurrency(withholding)}
           />
@@ -56,7 +50,7 @@ export const ResultCard = () => {
 
         {/* Net Interest Amount */}
         <ResultCardItem
-          icon={<FinalEarningsIcon />}
+          icon={<BanknoteIcon />}
           label={t.netInterest}
           value={formatCurrency(netInterest)}
           large
@@ -64,7 +58,7 @@ export const ResultCard = () => {
 
         {/* Final Amount - Main Result */}
         <ResultCardItem
-          icon={<FinalEarningsIcon />}
+          icon={<BanknoteIcon />}
           label={t.finalAmount}
           value={formatCurrency(finalAmount)}
           large

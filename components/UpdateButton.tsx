@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useBankProductList } from "@/hooks/useBankProductList";
 import { Button } from "@/components/Button";
-import { SaveIcon, LoginIcon } from "@/components/Icons";
+import { SaveIcon, LogInIcon } from "lucide-react";
 
 export const UpdateButton = () => {
   const { isAuthenticated, login, logout } = useAuth();
@@ -77,7 +77,7 @@ export const UpdateButton = () => {
           onClick={() => setShowAuthModal(true)}
           title="Admin login"
         >
-          <LoginIcon />
+          <LogInIcon className="size-4" />
         </Button>
 
         {showAuthModal && (
