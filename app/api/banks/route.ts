@@ -6,10 +6,10 @@ import type { BankData } from "@/types";
 const TOKEN_COOKIE_NAME = "admin_token";
 
 const DUMMY_BANKS: BankData[] = [
-  { name: "ING", interestRate: 44.0, reservedAmount: 0 },
-  { name: "Yapı Kredi", interestRate: 40.3, reservedAmount: 0 },
-  { name: "TEB", interestRate: 42.0, reservedAmount: 0 },
-  { name: "Vakıfbank", interestRate: 38.0, reservedAmount: 0 },
+  { name: "ING", interestRate: 44.0, reservedAmount: 285000 },
+  { name: "Yapı Kredi", interestRate: 40.3, reservedAmount: 300000 },
+  { name: "TEB", interestRate: 42.0, reservedAmount: 485000 },
+  { name: "Vakıfbank", interestRate: 38.0, reservedAmount: 450000 },
 ];
 
 export async function GET() {
