@@ -3,8 +3,15 @@
 import { createContext, ReactNode } from "react";
 import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
 
+interface AuthUser {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+}
+
 interface AuthContextType {
     isAuthenticated: boolean;
+    user: AuthUser | null;
     login: () => void;
     logout: () => void;
 }
@@ -18,6 +25,7 @@ function AuthContextBridge({ children }: { children: ReactNode }) {
         <AuthContext.Provider
             value={{
                 isAuthenticated: !!session?.user,
+                user: session?.user ?? null,
                 login: () => signIn("github"),
                 logout: () => signOut(),
             }}
