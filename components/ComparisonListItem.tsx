@@ -5,7 +5,7 @@ import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
-import { PenIcon } from "@/components/Icons";
+import { DeleteIcon, PenIcon } from "@/components/Icons";
 import { Button } from "@/components/Button";
 
 interface ComparisonListItemProps {
@@ -72,13 +72,15 @@ export const ComparisonListItem = ({
         <div className="flex gap-2">
           <Button
             variant="ghost"
-            onClick={onStartEditing}>
+            onClick={onStartEditing}
+            aria-label={t.edit}>
             <PenIcon />
           </Button>
           <Button
             variant="ghost"
-            onClick={onRemove}>
-            ✕
+            onClick={onRemove}
+            aria-label={t.remove}>
+            <DeleteIcon />
           </Button>
         </div>
       </div>
