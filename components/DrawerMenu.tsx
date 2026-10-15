@@ -23,7 +23,7 @@ export const DrawerMenu = () => {
     const [saving, setSaving] = useState(false);
     const [showSaved, setShowSaved] = useState(false);
 
-    const { isAuthenticated, user, login, logout } = useAuth();
+    const { isAuthenticated, isAdmin, user, login, logout } = useAuth();
     const { t, language, setLanguage } = useTranslations();
     const { isRounded, setIsRounded } = useNumberFormat();
     const { items } = useBankProductList();
@@ -129,7 +129,7 @@ export const DrawerMenu = () => {
                         onClick={() => setIsRounded(!isRounded)}
                     />
 
-                    {isAuthenticated && (
+                    {isAdmin && (
                         <MenuItem
                             icon={<SaveIcon className="size-5" />}
                             label={showSaved ? "Saved!" : "Save changes"}

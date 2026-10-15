@@ -11,6 +11,7 @@ interface AuthUser {
 
 interface AuthContextType {
     isAuthenticated: boolean;
+    isAdmin: boolean;
     user: AuthUser | null;
     login: () => void;
     logout: () => void;
@@ -25,6 +26,7 @@ function AuthContextBridge({ children }: { children: ReactNode }) {
         <AuthContext.Provider
             value={{
                 isAuthenticated: !!session?.user,
+                isAdmin: !!session?.user?.isAdmin,
                 user: session?.user ?? null,
                 login: () => signIn("github"),
                 logout: () => signOut(),
