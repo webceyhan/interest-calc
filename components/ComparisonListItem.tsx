@@ -94,9 +94,11 @@ export const ComparisonListItem = ({
               <PencilIcon className="size-4" />
             </Button>
           )}
-          <Button variant="ghost" onClick={onRemove}>
-            <XIcon className="size-4" />
-          </Button>
+          {!isEditing && (
+            <Button variant="ghost" onClick={onRemove}>
+              <XIcon className="size-4" />
+            </Button>
+          )}
         </div>
       </div>
 
