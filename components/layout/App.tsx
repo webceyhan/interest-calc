@@ -1,8 +1,8 @@
-import { Calculator } from "@/components/Calculator";
-import { Header } from "@/components/Header";
-import { ComparisonList } from "@/components/ComparisonList";
-import { DynamicTitle } from "@/components/DynamicTitle";
-import { LanguageSync } from "@/components/LanguageSync";
+import { Calculator } from "@/components/calculator/Calculator";
+import { Header } from "@/components/layout/Header";
+import { ComparisonList } from "@/components/comparison/ComparisonList";
+import { DynamicTitle } from "@/components/layout/DynamicTitle";
+import { LanguageSync } from "@/components/layout/LanguageSync";
 import { TranslationsProvider } from "@/contexts/TranslationsContext";
 import { NumberFormatProvider } from "@/contexts/NumberFormatContext";
 import { CalculatorProvider } from "@/contexts/CalculatorContext";

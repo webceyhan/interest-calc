@@ -1,5 +1,5 @@
 import { useTranslations } from "@/hooks/useTranslations";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 
 export const LanguageSelector = () => {
   const { language, setLanguage } = useTranslations();

@@ -1,7 +1,7 @@
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { DecimalsArrowLeftIcon, DecimalsArrowRightIcon } from "lucide-react";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 
 export const RoundingSelector = () => {
   const { t } = useTranslations();

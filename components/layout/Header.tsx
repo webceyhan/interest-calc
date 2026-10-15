@@ -1,5 +1,5 @@
 import { useTranslations } from "@/hooks/useTranslations";
-import { DrawerMenu } from "@/components/DrawerMenu";
+import { DrawerMenu } from "@/components/layout/DrawerMenu";
 
 export const Header = () => {
   const { t } = useTranslations();

@@ -16,7 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useNumberFormat } from "@/hooks/useNumberFormat";
 import { useBankProductList } from "@/hooks/useBankProductList";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 
 export const DrawerMenu = () => {
     const [open, setOpen] = useState(false);

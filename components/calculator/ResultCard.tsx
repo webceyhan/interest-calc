@@ -4,7 +4,7 @@ import { useCalculator } from "@/hooks/useCalculator";
 import { calculateDeposit } from "@/utils/calculations";
 import { WITHHOLDING_RATE } from "@/constants";
 import { CalendarDaysIcon, PieChartIcon, PercentIcon, BanknoteIcon } from "lucide-react";
-import { ResultCardItem } from "@/components/ResultCardItem";
+import { ResultCardItem } from "@/components/calculator/ResultCardItem";
 
 export const ResultCard = () => {
   const { t } = useTranslations();

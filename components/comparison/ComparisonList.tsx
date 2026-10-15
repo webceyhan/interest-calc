@@ -8,9 +8,9 @@ import { useBankProductList } from "@/hooks/useBankProductList";
 import { calculateDeposit } from "@/utils/calculations";
 import { shareComparison } from "@/utils/shareComparison";
 import { WITHHOLDING_RATE } from "@/constants";
-import { ComparisonListItem } from "@/components/ComparisonListItem";
-import { ComparisonListPlaceholder } from "@/components/ComparisonListPlaceholder";
-import { Button } from "@/components/Button";
+import { ComparisonListItem } from "@/components/comparison/ComparisonListItem";
+import { ComparisonListPlaceholder } from "@/components/comparison/ComparisonListPlaceholder";
+import { Button } from "@/components/ui/Button";
 
 export type { ComparisonItem };
 

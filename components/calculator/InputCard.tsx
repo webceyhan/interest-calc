@@ -1,7 +1,7 @@
 import type { ComparisonItem } from "@/types";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useCalculator } from "@/hooks/useCalculator";
-import { InputCardItem } from "@/components/InputCardItem";
+import { InputCardItem } from "@/components/calculator/InputCardItem";
 
 export const InputCard = () => {
   const { t } = useTranslations();
